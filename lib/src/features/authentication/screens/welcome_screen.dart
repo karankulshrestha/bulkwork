@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/features/authentication/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -61,13 +62,16 @@ class WelcomeScreen extends StatelessWidget {
                 child: Center(
                   child: TextButton(
                     child: Text(
-                      "Sign in",
+                      "Get Started",
                       style: TextStyle(
                           fontSize: 25,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () async {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SignIn()));
+                    },
                   ),
                 )),
           ],
