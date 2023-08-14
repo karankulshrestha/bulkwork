@@ -1,16 +1,15 @@
-import 'package:bulkwork/src/features/authentication/screens/signup_screen.dart';
+import 'package:bulkwork/src/features/authentication/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/services.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +24,7 @@ class _SignInState extends State<SignIn> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.54,
+                    top: MediaQuery.of(context).size.height * 0.5,
                     left: 35,
                     right: 35),
                 child: Column(
@@ -41,7 +40,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     TextField(
                       obscureText: true,
@@ -50,6 +49,23 @@ class _SignInState extends State<SignIn> {
                         fillColor: Colors.white,
                         prefixIcon: Icon(Icons.lock),
                         hintText: "Password",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ], // Only numbers can be entered
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: Icon(Icons.phone),
+                        hintText: "Phone Number",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
                       ),
@@ -68,7 +84,7 @@ class _SignInState extends State<SignIn> {
                             EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                       ),
                       child: Text(
-                        "Sign In",
+                        "Sign Up",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -87,7 +103,7 @@ class _SignInState extends State<SignIn> {
                         child: Center(
                           child: TextButton(
                             child: Text(
-                              "Sign up",
+                              "Sign In",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
@@ -97,7 +113,7 @@ class _SignInState extends State<SignIn> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SignUp()));
+                                      builder: (context) => SignIn()));
                             },
                           ),
                         )),
