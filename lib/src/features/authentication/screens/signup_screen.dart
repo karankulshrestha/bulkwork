@@ -14,8 +14,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   String phoneNumber = "";
   bool _isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,12 +31,7 @@ class _SignUpState extends State<SignUp> {
     setState(() {
       _isLoading = true;
     });
-    String res = await AuthMethods().signUpUser(
-        email: _emailController.text,
-        password: _passwordController.text,
-        phoneNumber: phoneNumber);
-
-    if (res == "success") {
+    try {
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (_) => {},
@@ -54,7 +49,12 @@ class _SignUpState extends State<SignUp> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => OtpVerify(verificationId: verificationId),
+                builder: (context) => OtpVerify(
+                  verificationId: verificationId,
+                  email: _emailController.text,
+                  password: _passwordController.text,
+                  phoneNumber: phoneNumber,
+                ),
               ),
             );
           }
@@ -63,12 +63,12 @@ class _SignUpState extends State<SignUp> {
           if (context.mounted) {showSnackBar(context, e.toString())},
         },
       );
-    } else {
+    } catch (e) {
       setState(() {
         _isLoading = false;
       });
       if (context.mounted) {
-        showSnackBar(context, res);
+        showSnackBar(context, e.toString());
       }
     }
   }

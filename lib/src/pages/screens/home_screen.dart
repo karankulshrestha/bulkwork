@@ -1,4 +1,5 @@
 import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/methods/user_details.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,30 +20,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  String name = ' ';
-
-  save() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("fat", widget.fat);
-    prefs.setString("gender", widget.gender);
-    prefs.setString("height", widget.height);
-    prefs.setString("weight", widget.weight);
-    prefs.setString("mode", widget.mode);
-    prefs.setString("age", widget.age);
-  }
-
-  @override
   void initState() {
     super.initState();
-    save();
+    saveData();
   }
 
-  readSaved() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      name = prefs.getString("fat")!;
-    });
-    print(name);
+  void saveData() async {
+    String res = await UserPreference().registerUserDetails(
+        fat: widget.fat,
+        gender: widget.gender,
+        age: widget.age,
+        height: widget.height,
+        weight: widget.weight,
+        mode: widget.mode);
+
+    if (res == "success") {
+      showSnackBar(context, "data saved successfully");
+    } else {
+      showSnackBar(context, "data not saved successfully");
+    }
   }
 
   @override
@@ -56,9 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(top: 100),
               child: ElevatedButton(
                 child: const Text('saved'),
-                onPressed: () {
-                  save();
-                },
+                onPressed: () {},
               ),
             ),
           ),
@@ -67,9 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(top: 100),
               child: ElevatedButton(
                 child: const Text('Read'),
-                onPressed: () {
-                  readSaved();
-                },
+                onPressed: () {},
               ),
             ),
           ),

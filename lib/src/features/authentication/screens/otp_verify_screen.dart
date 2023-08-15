@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/features/authentication/controllers/auth_methods.dart';
 import 'package:bulkwork/src/features/authentication/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,8 +7,13 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import '../../utils/utils.dart';
 
 class OtpVerify extends StatefulWidget {
-  final String verificationId;
-  const OtpVerify({super.key, required this.verificationId});
+  final String verificationId, email, password, phoneNumber;
+  const OtpVerify(
+      {super.key,
+      required this.verificationId,
+      required this.email,
+      required this.password,
+      required this.phoneNumber});
 
   @override
   State<OtpVerify> createState() => _OtpVerifyState();
@@ -27,7 +33,13 @@ class _OtpVerifyState extends State<OtpVerify> {
 
     try {
       await auth.signInWithCredential(credential);
-      if (context.mounted) {
+      String phoneId = await FirebaseAuth.instance.currentUser!.uid;
+      String res = await AuthMethods().signUpUser(
+          email: widget.email,
+          password: widget.password,
+          phoneNumber: widget.phoneNumber,
+          phoneuid: phoneId);
+      if (context.mounted && res == "success") {
         setState(() {
           isLoading = false;
         });
@@ -37,6 +49,11 @@ class _OtpVerifyState extends State<OtpVerify> {
             builder: (context) => MainScreen(),
           ),
         );
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(context, "something went wrong");
       }
     } catch (e) {
       if (context.mounted) {

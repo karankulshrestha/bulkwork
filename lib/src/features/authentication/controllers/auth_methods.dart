@@ -10,7 +10,8 @@ class AuthMethods {
   Future<String> signUpUser(
       {required String email,
       required String password,
-      required String phoneNumber}) async {
+      required String phoneNumber,
+      required String phoneuid}) async {
     String res = "Some error occurred";
     try {
       if (email.isNotEmpty || password.isNotEmpty || phoneNumber.isNotEmpty) {
@@ -18,7 +19,10 @@ class AuthMethods {
             email: email, password: password);
 
         model.User user = model.User(
-            email: email, phoneNumber: phoneNumber, uid: cred.user!.uid);
+            email: email,
+            phoneNumber: phoneNumber,
+            uid: cred.user!.uid,
+            phoneuid: phoneuid);
 
         await _firestore
             .collection("users")
