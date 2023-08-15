@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
               SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.54,
+                      top: MediaQuery.of(context).size.height * 0.4,
                       left: 35,
                       right: 35),
                   child: Column(

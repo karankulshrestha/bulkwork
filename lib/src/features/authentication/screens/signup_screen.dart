@@ -1,7 +1,9 @@
 import 'package:bulkwork/src/features/authentication/controllers/auth_methods.dart';
 import 'package:bulkwork/src/features/authentication/screens/signin_screen.dart';
+import 'package:bulkwork/src/features/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -14,6 +16,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -21,6 +24,31 @@ class _SignUpState extends State<SignUp> {
     _emailController.dispose();
     _passwordController.dispose();
     _phoneController.dispose();
+  }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+        phoneNumber: _phoneController.text);
+    if (res == "success") {
+      setState(() {
+        _isLoading = false;
+      });
+      if (context.mounted) {
+        showSnackBar(context, "Otp Send!");
+      }
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      if (context.mounted) {
+        showSnackBar(context, res);
+      }
+    }
   }
 
   @override
@@ -38,7 +66,7 @@ class _SignUpState extends State<SignUp> {
               SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.5,
+                      top: MediaQuery.of(context).size.height * 0.4,
                       left: 35,
                       right: 35),
                   child: Column(
@@ -72,31 +100,26 @@ class _SignUpState extends State<SignUp> {
                       SizedBox(
                         height: 10,
                       ),
-                      TextField(
-                        controller: _phoneController,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ], // Only numbers can be entered
+                      IntlPhoneField(
                         decoration: InputDecoration(
+                          hintText: "Phone Number",
                           filled: true,
                           fillColor: Colors.white,
-                          prefixIcon: Icon(Icons.phone),
-                          hintText: "Phone Number",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderSide: BorderSide(),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
+                        initialCountryCode: 'IN',
+                        onChanged: (phone) {
+                          print(phone.completeNumber);
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       ElevatedButton(
-                        onPressed: () async {
-                          String res = await AuthMethods().signUpUser(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                              phoneNumber: _phoneController.text);
-                        },
+                        onPressed: () => signUpUser(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 36, 70, 222),
                           shape: RoundedRectangleBorder(
@@ -106,11 +129,19 @@ class _SignUpState extends State<SignUp> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 80, vertical: 15),
                         ),
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
+                        child: _isLoading
+                            ? SizedBox(
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                                height: 20,
+                                width: 20,
+                              )
+                            : Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width * 0.4,
