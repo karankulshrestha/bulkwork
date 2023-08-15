@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/features/authentication/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -77,7 +78,6 @@ class _OtpVerifyState extends State<OtpVerify> {
                     keyboardType: TextInputType.number,
                     maxLength: 6,
                     controller: otpController,
-                    obscureText: true,
                     decoration: InputDecoration(
                       counterStyle: TextStyle(color: Colors.white),
                       filled: true,
@@ -95,7 +95,14 @@ class _OtpVerifyState extends State<OtpVerify> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.4),
                   child: ElevatedButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MainScreen(),
+                        ),
+                      )
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromARGB(255, 36, 70, 222),
                       shape: RoundedRectangleBorder(
