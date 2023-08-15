@@ -1,19 +1,24 @@
-import 'package:bulkwork/src/pages/question_screens/height.dart';
+import 'package:bulkwork/src/pages/question_screens/gender.dart';
+import 'package:bulkwork/src/pages/question_screens/weight.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/grad_button.dart';
-import 'gender.dart';
 
-class AgeScreen extends StatelessWidget {
-  const AgeScreen({super.key});
+class HeightScreen extends StatefulWidget {
+  const HeightScreen({super.key});
 
+  @override
+  State<HeightScreen> createState() => _HeightScreenState();
+}
+
+class _HeightScreenState extends State<HeightScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/images/age.png"), fit: BoxFit.cover),
+            image: AssetImage("assets/images/height.png"), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -28,7 +33,7 @@ class AgeScreen extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        "What is your age?",
+                        "What is your height?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
@@ -43,12 +48,12 @@ class AgeScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       child: TextField(
                         keyboardType: TextInputType.number,
-                        maxLength: 2,
+                        maxLength: 3,
                         decoration: InputDecoration(
                           counterStyle: TextStyle(color: Colors.white),
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Enter your age",
+                          hintText: "Enter height (in cm)",
                           prefixIcon: Icon(Icons.person),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
@@ -66,7 +71,7 @@ class AgeScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => HeightScreen()));
+                                    builder: (context) => WeightScreen()));
                           }
                         },
                       ),
