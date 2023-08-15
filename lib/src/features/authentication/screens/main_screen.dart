@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/pages/question_screens/fat.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -17,7 +18,7 @@ class MainScreen extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.56),
+                    top: MediaQuery.of(context).size.height * 0.52),
                 child: Center(
                   child: Text(
                     "Right before we create the perfect workout \n routine for you, we need to ask you some \n questions",
@@ -28,11 +29,16 @@ class MainScreen extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.8),
+                    top: MediaQuery.of(context).size.height * 0.7),
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      debugPrint('Hi there');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FatPage(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
@@ -57,10 +63,6 @@ class MainScreen extends StatelessWidget {
                               fontSize: 24, fontStyle: FontStyle.normal),
                         ),
                         decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Color.fromARGB(255, 247, 247, 247),
-                            ),
                             borderRadius: BorderRadius.circular(20)),
                       ),
                     ),

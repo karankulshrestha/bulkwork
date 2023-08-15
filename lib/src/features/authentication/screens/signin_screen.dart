@@ -76,33 +76,34 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          padding: EdgeInsets.only(top: 25),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                width: 2.0,
-                                color: Colors.white,
-                              ),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.only(top: 25),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              width: 2.0,
+                              color: Colors.white,
                             ),
                           ),
-                          child: Center(
-                            child: TextButton(
-                              child: Text(
-                                "Sign up",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignUp()));
-                              },
+                        ),
+                        child: Center(
+                          child: TextButton(
+                            child: Text(
+                              "Sign up",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal),
                             ),
-                          )),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()));
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -16,7 +16,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  String phoneNumber = "";
   bool _isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -25,7 +25,6 @@ class _SignUpState extends State<SignUp> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _phoneController.dispose();
   }
 
   void signUpUser() async {
@@ -35,35 +34,35 @@ class _SignUpState extends State<SignUp> {
     String res = await AuthMethods().signUpUser(
         email: _emailController.text,
         password: _passwordController.text,
-        phoneNumber: _phoneController.text);
-
-    await _auth.verifyPhoneNumber(
-      phoneNumber: _phoneController.text,
-      verificationCompleted: (_) => {
-        if (context.mounted) {},
-      },
-      verificationFailed: (e) => {},
-      codeSent: (String verificationId, int? token) {
-        if (context.mounted) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      OtpVerify(verificationId: verificationId)));
-        }
-      },
-      codeAutoRetrievalTimeout: (e) => {
-        if (context.mounted) {showSnackBar(context, e.toString())},
-      },
-    );
+        phoneNumber: phoneNumber);
 
     if (res == "success") {
-      setState(() {
-        _isLoading = false;
-      });
-      if (context.mounted) {
-        showSnackBar(context, "Otp Send!");
-      }
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (_) => {},
+        verificationFailed: (e) => {
+          if (context.mounted) {showSnackBar(context, e.toString())},
+        },
+        codeSent: (String verificationId, int? token) {
+          setState(() {
+            _isLoading = false;
+          });
+          if (context.mounted) {
+            showSnackBar(context, "Otp Send!");
+          }
+          if (context.mounted) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OtpVerify(verificationId: verificationId),
+              ),
+            );
+          }
+        },
+        codeAutoRetrievalTimeout: (e) => {
+          if (context.mounted) {showSnackBar(context, e.toString())},
+        },
+      );
     } else {
       setState(() {
         _isLoading = false;
@@ -136,23 +135,16 @@ class _SignUpState extends State<SignUp> {
                         ),
                         initialCountryCode: 'IN',
                         onChanged: (phone) {
-                          print(phone.completeNumber);
+                          setState(() {
+                            phoneNumber = phone.completeNumber;
+                          });
                         },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       ElevatedButton(
-                        onPressed: () => {
-                          // signUpUser()
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  OtpVerify(verificationId: "verificationId"),
-                            ),
-                          ),
-                        },
+                        onPressed: () => signUpUser(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 36, 70, 222),
                           shape: RoundedRectangleBorder(

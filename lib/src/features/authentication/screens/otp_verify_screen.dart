@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
+import '../../utils/utils.dart';
+
 class OtpVerify extends StatefulWidget {
   final String verificationId;
   const OtpVerify({super.key, required this.verificationId});
@@ -16,36 +18,33 @@ class _OtpVerifyState extends State<OtpVerify> {
   final otpController = TextEditingController();
   final auth = FirebaseAuth.instance;
 
-  String text = '';
-
-  void _onKeyboardTap(String value) {
+  void verifyOtp() async {
     setState(() {
-      text = text + value;
+      isLoading = true;
     });
-  }
+    final credential = PhoneAuthProvider.credential(
+        verificationId: widget.verificationId, smsCode: otpController.text);
 
-  Widget otpNumberWidget(int position) {
     try {
-      return Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 0),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        child: Center(
-            child: Text(
-          text[position],
-          style: TextStyle(color: Colors.black),
-        )),
-      );
+      await auth.signInWithCredential(credential);
+      if (context.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainScreen(),
+          ),
+        );
+      }
     } catch (e) {
-      return Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 0),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-      );
+      if (context.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(context, e.toString());
+      }
     }
   }
 
@@ -95,14 +94,7 @@ class _OtpVerifyState extends State<OtpVerify> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.4),
                   child: ElevatedButton(
-                    onPressed: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MainScreen(),
-                        ),
-                      )
-                    },
+                    onPressed: () => verifyOtp(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromARGB(255, 36, 70, 222),
                       shape: RoundedRectangleBorder(
