@@ -1,8 +1,9 @@
 import 'package:bulkwork/src/features/authentication/controllers/auth_methods.dart';
+import 'package:bulkwork/src/features/authentication/screens/otp_verify_screen.dart';
 import 'package:bulkwork/src/features/authentication/screens/signin_screen.dart';
 import 'package:bulkwork/src/features/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class SignUp extends StatefulWidget {
@@ -17,6 +18,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   bool _isLoading = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -34,6 +36,27 @@ class _SignUpState extends State<SignUp> {
         email: _emailController.text,
         password: _passwordController.text,
         phoneNumber: _phoneController.text);
+
+    await _auth.verifyPhoneNumber(
+      phoneNumber: _phoneController.text,
+      verificationCompleted: (_) => {
+        if (context.mounted) {},
+      },
+      verificationFailed: (e) => {},
+      codeSent: (String verificationId, int? token) {
+        if (context.mounted) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      OtpVerify(verificationId: verificationId)));
+        }
+      },
+      codeAutoRetrievalTimeout: (e) => {
+        if (context.mounted) {showSnackBar(context, e.toString())},
+      },
+    );
+
     if (res == "success") {
       setState(() {
         _isLoading = false;
@@ -103,6 +126,7 @@ class _SignUpState extends State<SignUp> {
                       IntlPhoneField(
                         decoration: InputDecoration(
                           hintText: "Phone Number",
+                          counterStyle: TextStyle(color: Colors.white),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -119,7 +143,16 @@ class _SignUpState extends State<SignUp> {
                         height: 20,
                       ),
                       ElevatedButton(
-                        onPressed: () => signUpUser(),
+                        onPressed: () => {
+                          // signUpUser()
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  OtpVerify(verificationId: "verificationId"),
+                            ),
+                          ),
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 36, 70, 222),
                           shape: RoundedRectangleBorder(
@@ -144,33 +177,34 @@ class _SignUpState extends State<SignUp> {
                               ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          padding: EdgeInsets.only(top: 25),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                width: 2.0,
-                                color: Colors.white,
-                              ),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.only(top: 25),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              width: 2.0,
+                              color: Colors.white,
                             ),
                           ),
-                          child: Center(
-                            child: TextButton(
-                              child: Text(
-                                "Sign In",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignIn()));
-                              },
+                        ),
+                        child: Center(
+                          child: TextButton(
+                            child: Text(
+                              "Sign In",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal),
                             ),
-                          )),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignIn()));
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
