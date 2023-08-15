@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/grad_button.dart';
 
 class HeightScreen extends StatefulWidget {
-  const HeightScreen({super.key});
+  final String gender, fat, age;
+  const HeightScreen(
+      {super.key, required this.gender, required this.fat, required this.age});
 
   @override
   State<HeightScreen> createState() => _HeightScreenState();
@@ -15,6 +17,7 @@ class HeightScreen extends StatefulWidget {
 class _HeightScreenState extends State<HeightScreen> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController heightController = new TextEditingController();
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -47,6 +50,7 @@ class _HeightScreenState extends State<HeightScreen> {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       child: TextField(
+                        controller: heightController,
                         keyboardType: TextInputType.number,
                         maxLength: 3,
                         decoration: InputDecoration(
@@ -69,9 +73,15 @@ class _HeightScreenState extends State<HeightScreen> {
                         onPressed: () {
                           if (context.mounted) {
                             Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => WeightScreen()));
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => WeightScreen(
+                                    gender: widget.gender,
+                                    fat: widget.fat,
+                                    age: widget.age,
+                                    height: heightController.text),
+                              ),
+                            );
                           }
                         },
                       ),

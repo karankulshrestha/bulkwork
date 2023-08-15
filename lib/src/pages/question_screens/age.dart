@@ -6,10 +6,13 @@ import '../../widgets/grad_button.dart';
 import 'gender.dart';
 
 class AgeScreen extends StatelessWidget {
-  const AgeScreen({super.key});
+  final String gender, fat;
+  const AgeScreen({super.key, required this.fat, required this.gender});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController ageController = new TextEditingController();
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -42,6 +45,7 @@ class AgeScreen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       child: TextField(
+                        controller: ageController,
                         keyboardType: TextInputType.number,
                         maxLength: 2,
                         decoration: InputDecoration(
@@ -64,9 +68,14 @@ class AgeScreen extends StatelessWidget {
                         onPressed: () {
                           if (context.mounted) {
                             Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => HeightScreen()));
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => HeightScreen(
+                                    gender: gender,
+                                    fat: fat,
+                                    age: ageController.text),
+                              ),
+                            );
                           }
                         },
                       ),

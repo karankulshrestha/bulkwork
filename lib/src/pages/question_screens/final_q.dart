@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/pages/screens/home_screen.dart';
 import 'package:bulkwork/src/widgets/grad_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,14 @@ import 'package:flutter/material.dart';
 import 'gender.dart';
 
 class FinalQScreen extends StatefulWidget {
-  const FinalQScreen({super.key});
+  final String gender, fat, age, height, weight;
+  const FinalQScreen(
+      {super.key,
+      required this.gender,
+      required this.fat,
+      required this.age,
+      required this.height,
+      required this.weight});
 
   @override
   State<FinalQScreen> createState() => _FinalQScreenState();
@@ -40,14 +48,46 @@ class _FinalQScreenState extends State<FinalQScreen> {
               Container(
                 child: GradButton(
                   text: "Full gym",
-                  onPressed: () {},
+                  onPressed: () {
+                    if (context.mounted) {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => HomeScreen(
+                            gender: widget.gender,
+                            fat: widget.fat,
+                            age: widget.age,
+                            height: widget.height,
+                            mode: "Full gym",
+                            weight: widget.weight,
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 150),
                 child: GradButton(
                   text: "Dumbbells only",
-                  onPressed: () {},
+                  onPressed: () {
+                    if (context.mounted) {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => HomeScreen(
+                            gender: widget.gender,
+                            fat: widget.fat,
+                            age: widget.age,
+                            height: widget.height,
+                            mode: "Dumbbells only",
+                            weight: widget.weight,
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/features/utils/utils.dart';
 import 'package:bulkwork/src/pages/question_screens/age.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,8 @@ import 'package:flutter/material.dart';
 import '../../widgets/grad_button.dart';
 
 class Gender extends StatefulWidget {
-  const Gender({super.key});
+  final String fat;
+  const Gender({super.key, required this.fat});
 
   @override
   State<Gender> createState() => _GenderState();
@@ -43,9 +45,12 @@ class _GenderState extends State<Gender> {
                   onPressed: () {
                     if (context.mounted) {
                       Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => AgeScreen()));
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) =>
+                              AgeScreen(fat: widget.fat, gender: "MALE"),
+                        ),
+                      );
                     }
                   },
                 ),
@@ -57,9 +62,12 @@ class _GenderState extends State<Gender> {
                   onPressed: () {
                     if (context.mounted) {
                       Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => AgeScreen()));
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) =>
+                              AgeScreen(fat: widget.fat, gender: "FEMALE"),
+                        ),
+                      );
                     }
                   },
                 ),

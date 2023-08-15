@@ -41,8 +41,12 @@ class _FatPageState extends State<FatPage> {
                   text: "Greater than 15%",
                   onPressed: () {
                     if (context.mounted) {
-                      Navigator.push(context,
-                          CupertinoPageRoute(builder: (context) => Gender()));
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => Gender(fat: 'Greater than 15%'),
+                        ),
+                      );
                     }
                   },
                 ),
@@ -53,8 +57,12 @@ class _FatPageState extends State<FatPage> {
                   text: "Lesser than 15%",
                   onPressed: () {
                     if (context.mounted) {
-                      Navigator.push(context,
-                          CupertinoPageRoute(builder: (context) => Gender()));
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => Gender(fat: 'Lesser than 15%'),
+                        ),
+                      );
                     }
                   },
                 ),
@@ -65,8 +73,12 @@ class _FatPageState extends State<FatPage> {
                     text: "I don't know",
                     onPressed: () {
                       if (context.mounted) {
-                        Navigator.push(context,
-                            CupertinoPageRoute(builder: (context) => Gender()));
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => Gender(fat: 'I don\'t know'),
+                          ),
+                        );
                       }
                     }),
               ),
