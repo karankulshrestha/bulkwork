@@ -1,3 +1,6 @@
+import 'package:bulkwork/src/pages/screens/diet_screen.dart';
+import 'package:bulkwork/src/pages/screens/exercise_screen.dart';
+import 'package:bulkwork/src/pages/screens/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +13,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int myIndex = 1;
+
+  List<Widget> pages = const [DietScreen(), ExerciseScreen(), ProgressScreen()];
+
   @override
   void initState() {
     super.initState();
@@ -42,79 +49,76 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onPop,
-      child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/home.png"),
-                fit: BoxFit.cover)),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text("Welcome User"),
-            backgroundColor: Color.fromARGB(255, 9, 18, 145),
-          ),
-          backgroundColor: Colors.transparent,
-          endDrawer: Drawer(),
-          body: SafeArea(
-            child: Stack(
-              children: [],
-            ),
-          ),
-          bottomNavigationBar: Container(
-            height: 80,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 208, 16, 225),
-                  Color.fromARGB(255, 11, 36, 197)
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                stops: [0.0, 0.8],
-                tileMode: TileMode.clamp,
-              ),
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black38, spreadRadius: 3, blurRadius: 10),
+      child: Scaffold(
+        extendBody: true,
+        appBar: AppBar(
+          title: Text("Welcome User"),
+          backgroundColor: Color.fromARGB(255, 9, 18, 145),
+        ),
+        backgroundColor: Colors.white,
+        endDrawer: Drawer(),
+        body: SafeArea(child: pages[myIndex]),
+        bottomNavigationBar: Container(
+          height: 80,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 208, 16, 225),
+                Color.fromARGB(255, 11, 36, 197)
               ],
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              stops: [0.0, 0.8],
+              tileMode: TileMode.clamp,
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
-              child: BottomNavigationBar(
-                backgroundColor: Colors.transparent,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                items: <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/logo/diet.png",
-                      width: 50,
-                      height: 50,
-                    ),
-                    label: 'Diet',
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            boxShadow: [
+              BoxShadow(color: Colors.black38, spreadRadius: 3, blurRadius: 10),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            child: BottomNavigationBar(
+              onTap: (index) {
+                setState(() {
+                  myIndex = index;
+                });
+              },
+              currentIndex: myIndex,
+              backgroundColor: Colors.transparent,
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              selectedItemColor: Colors.white,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/logo/diet.png",
+                    width: 50,
+                    height: 50,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/logo/dumbell.png",
-                      width: 50,
-                      height: 50,
-                    ),
-                    label: '',
+                  label: 'Diet',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/logo/dumbell.png",
+                    width: 50,
+                    height: 50,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/logo/progress.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    label: '',
+                  label: 'exercise',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/logo/progress.png",
+                    width: 40,
+                    height: 40,
                   ),
-                ],
-              ),
+                  label: 'progress',
+                ),
+              ],
             ),
           ),
         ),
