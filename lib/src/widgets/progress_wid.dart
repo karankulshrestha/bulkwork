@@ -11,7 +11,7 @@ class ProgressWid extends StatelessWidget {
     return Center(
       child: Container(
         child: InkWell(
-          onTap: () => onPressed,
+          onTap: onPressed,
           child: SizedBox(
             child: new LinearPercentIndicator(
               width: MediaQuery.of(context).size.width - 80,
@@ -27,7 +27,7 @@ class ProgressWid extends StatelessWidget {
                     fontSize: 24),
               ),
               barRadius: const Radius.circular(20),
-              progressColor: Color.fromARGB(255, 155, 10, 171),
+              progressColor: Color.fromARGB(255, 115, 4, 128),
             ),
           ),
         ),

@@ -1,6 +1,8 @@
+import 'package:bulkwork/src/pages/weeks/full_week_screen.dart';
 import 'package:bulkwork/src/widgets/month_card.dart';
 import 'package:bulkwork/src/widgets/progress_wid.dart';
 import 'package:bulkwork/src/widgets/score_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseScreen extends StatefulWidget {
@@ -56,7 +58,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.1),
-                        child: ProgressWid(label: "Week 1", onPressed: () {}),
+                        child: ProgressWid(
+                            label: "Week 1",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 1"),
+                                ),
+                              );
+                            }),
                       ),
                       SizedBox(
                         height: 20,
@@ -65,7 +77,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.1),
-                        child: ProgressWid(label: "Week 2", onPressed: () {}),
+                        child: ProgressWid(
+                            label: "Week 2",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 2"),
+                                ),
+                              );
+                            }),
                       ),
                       SizedBox(
                         height: 20,
@@ -74,7 +96,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.1),
-                        child: ProgressWid(label: "Week 3", onPressed: () {}),
+                        child: ProgressWid(
+                            label: "Week 3",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 3"),
+                                ),
+                              );
+                            }),
                       ),
                       SizedBox(
                         height: 20,
@@ -83,7 +115,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.1),
-                        child: ProgressWid(label: "Week 4", onPressed: () {}),
+                        child: ProgressWid(
+                            label: "Week 4",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 4"),
+                                ),
+                              );
+                            }),
                       )
                     ],
                   )
