@@ -1,3 +1,5 @@
+import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/methods/user_details.dart';
 import 'package:bulkwork/src/pages/screens/home_screen.dart';
 import 'package:bulkwork/src/widgets/grad_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +22,23 @@ class FinalQScreen extends StatefulWidget {
 }
 
 class _FinalQScreenState extends State<FinalQScreen> {
+  void saveData(String mode) async {
+    String res = await UserPreference().registerUserDetails(
+      fat: widget.fat,
+      gender: widget.gender,
+      age: widget.age,
+      height: widget.height,
+      weight: widget.weight,
+      mode: mode,
+    );
+
+    if (res == "success") {
+      showSnackBar(context, "data saved successfully");
+    } else {
+      showSnackBar(context, "data not saved successfully");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,19 +69,13 @@ class _FinalQScreenState extends State<FinalQScreen> {
                   text: "Full gym",
                   onPressed: () {
                     if (context.mounted) {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => HomeScreen(
-                            gender: widget.gender,
-                            fat: widget.fat,
-                            age: widget.age,
-                            height: widget.height,
-                            mode: "Full gym",
-                            weight: widget.weight,
+                      saveData("Full gym");
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => HomeScreen(),
                           ),
-                        ),
-                      );
+                          (Route<dynamic> route) => false);
                     }
                   },
                 ),
@@ -72,20 +85,14 @@ class _FinalQScreenState extends State<FinalQScreen> {
                 child: GradButton(
                   text: "Dumbbells only",
                   onPressed: () {
+                    saveData("Dumbbells only");
                     if (context.mounted) {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => HomeScreen(
-                            gender: widget.gender,
-                            fat: widget.fat,
-                            age: widget.age,
-                            height: widget.height,
-                            mode: "Dumbbells only",
-                            weight: widget.weight,
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => HomeScreen(),
                           ),
-                        ),
-                      );
+                          (Route<dynamic> route) => false);
                     }
                   },
                 ),
