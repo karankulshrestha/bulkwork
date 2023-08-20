@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FullGymDays {
-  final String ex1;
-  final String ex2;
+  final String? ex1;
+  final String? ex2;
   final String? ex3;
 
   const FullGymDays({required this.ex1, required this.ex2, this.ex3});

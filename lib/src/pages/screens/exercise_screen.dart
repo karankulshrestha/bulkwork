@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/methods/reset_full_gym_days.dart';
 import 'package:bulkwork/src/pages/weeks/full_week_screen.dart';
 import 'package:bulkwork/src/widgets/month_card.dart';
@@ -17,7 +18,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
     super.initState();
-    ResetFullGymDays();
+    FullGymExercise().getMusclesDetails(week: "week 1");
   }
 
   @override
@@ -35,110 +36,108 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         body: SafeArea(
           child: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        ScoreCard(label: "Highest Streak", score: "192"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ScoreCard(label: "Current Streak", score: "93"),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        MonthCard(month: "03")
-                      ],
-                    ),
-                    SizedBox(
-                      height: 130,
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.1),
-                          child: ProgressWid(
-                              label: "Week 1",
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) =>
-                                        FullWeekGym(week: "Week 1"),
-                                  ),
-                                );
-                              }),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.1),
-                          child: ProgressWid(
-                              label: "Week 2",
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) =>
-                                        FullWeekGym(week: "Week 2"),
-                                  ),
-                                );
-                              }),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.1),
-                          child: ProgressWid(
-                              label: "Week 3",
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) =>
-                                        FullWeekGym(week: "Week 3"),
-                                  ),
-                                );
-                              }),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.1),
-                          child: ProgressWid(
-                              label: "Week 4",
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) =>
-                                        FullWeekGym(week: "Week 4"),
-                                  ),
-                                );
-                              }),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      ScoreCard(label: "Highest Streak", score: "192"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ScoreCard(label: "Current Streak", score: "93"),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      MonthCard(month: "03")
+                    ],
+                  ),
+                  SizedBox(
+                    height: 130,
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.1),
+                        child: ProgressWid(
+                            label: "Week 1",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 1"),
+                                ),
+                              );
+                            }),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.1),
+                        child: ProgressWid(
+                            label: "Week 2",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 2"),
+                                ),
+                              );
+                            }),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.1),
+                        child: ProgressWid(
+                            label: "Week 3",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 3"),
+                                ),
+                              );
+                            }),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.1),
+                        child: ProgressWid(
+                            label: "Week 4",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) =>
+                                      FullWeekGym(week: "Week 4"),
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  )
+                ],
               ),
             ],
           ),

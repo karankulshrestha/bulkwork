@@ -9,11 +9,14 @@ class MuscleBtn extends StatelessWidget {
     return Container(
       height: 44.0,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-          gradient: LinearGradient(colors: [
+        borderRadius: BorderRadius.circular(40),
+        gradient: LinearGradient(
+          colors: [
             Color.fromARGB(255, 65, 21, 225),
             Color.fromARGB(255, 240, 54, 200)
-          ])),
+          ],
+        ),
+      ),
       child: ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -33,11 +36,11 @@ class MuscleBtn extends StatelessWidget {
             bottom: 10,
           ),
           child: Text(
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             muscle,
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 18,
               color: Colors.white,
             ),
           ),
