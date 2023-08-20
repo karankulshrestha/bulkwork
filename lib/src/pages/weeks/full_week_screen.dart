@@ -1,3 +1,5 @@
+import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/widgets/day_rect.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -11,6 +13,21 @@ class FullWeekGym extends StatefulWidget {
 }
 
 class _FullWeekGymState extends State<FullWeekGym> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void saveExData() async {
+    String res = await FullGymExercise().registerExercise(
+        week: widget.week, day: 'Day 1', ex1: "Chest", ex2: "Shoulders");
+    if (res == "success") {
+      showSnackBar(context, "data saved successfully");
+    } else {
+      showSnackBar(context, "there was an error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,9 +76,14 @@ class _FullWeekGymState extends State<FullWeekGym> {
                 SizedBox(
                   height: 110,
                 ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 1",
+                InkWell(
+                  onTap: () {
+                    saveExData();
+                  },
+                  child: DayRect(
+                    week: widget.week,
+                    day: "Day 1",
+                  ),
                 ),
                 SizedBox(
                   height: 20,

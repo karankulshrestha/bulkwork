@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/widgets/grad_button.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -13,22 +14,7 @@ class ProgressWid extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: SizedBox(
-            child: new LinearPercentIndicator(
-              width: MediaQuery.of(context).size.width - 80,
-              animation: true,
-              lineHeight: 60.0,
-              animationDuration: 2500,
-              percent: 0.8,
-              center: Text(
-                label,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
-              ),
-              barRadius: const Radius.circular(20),
-              progressColor: Color.fromARGB(255, 115, 4, 128),
-            ),
+            child: GradButton(text: label, onPressed: onPressed),
           ),
         ),
       ),
