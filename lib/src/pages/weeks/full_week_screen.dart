@@ -71,10 +71,12 @@ class _FullWeekGymState extends State<FullWeekGym> {
                 progressColor: Color.fromARGB(255, 40, 220, 20),
               ),
             ),
-            Column(
+            new ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
               children: [
                 SizedBox(
-                  height: 110,
+                  height: 80,
                 ),
                 InkWell(
                   onTap: () {
