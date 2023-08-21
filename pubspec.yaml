@@ -36,6 +36,7 @@ dependencies:
   google_fonts: ^4.0.4
   intl_phone_field: ^3.2.0
   percent_indicator: ^4.2.3
+  riverpod: ^2.3.7
   shared_preferences: ^2.2.0
 
 dev_dependencies:

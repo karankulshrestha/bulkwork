@@ -1,6 +1,8 @@
 import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/models/full_gym.dart';
+import 'package:bulkwork/src/pages/screens/dayManage.dart';
 import 'package:bulkwork/src/widgets/muscle_btn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DayRect extends StatefulWidget {
@@ -118,15 +120,29 @@ class _DayRectState extends State<DayRect> {
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 15, left: 15, right: 10),
-                        child: Text(
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          widget.day,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => DayManager(
+                                  fullGymDays: muscleObj!,
+                                  day: widget.day,
+                                  week: widget.week,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            widget.day,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                       ex1 == null
