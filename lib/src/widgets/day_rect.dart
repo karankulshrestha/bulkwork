@@ -1,3 +1,5 @@
+import 'package:bulkwork/src/methods/full_gym_details.dart';
+import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/widgets/muscle_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +12,41 @@ class DayRect extends StatefulWidget {
 }
 
 class _DayRectState extends State<DayRect> {
+  late String? ex1, ex2, ex3, ex4, ex5;
+  late FullGymDays? muscleObj;
+  late bool? restDay;
+
+  @override
+  void initState() {
+    super.initState();
+    ex1 = "";
+    ex2 = "";
+    ex3 = "";
+    ex4 = "";
+    ex5 = "";
+    restDay = false;
+    getMuscle();
+  }
+
+  Future getMuscle() async {
+    muscleObj = await FullGymExercise()
+        .getMusclesDetails(week: widget.week, day: widget.day);
+
+    setState(() {
+      ex1 = muscleObj!.ex1;
+      ex2 = muscleObj!.ex2;
+      ex3 = muscleObj!.ex3;
+      ex4 = muscleObj!.ex4;
+      ex5 = muscleObj!.ex5;
+      restDay = muscleObj!.restday!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: widget.day == "Day 4"
+        child: restDay == true
             ? Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 height: 220,
@@ -97,26 +129,36 @@ class _DayRectState extends State<DayRect> {
                               color: Colors.white),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: MuscleBtn(muscle: "Shoulder"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: MuscleBtn(muscle: "Shoulder"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: MuscleBtn(muscle: "Shoulder"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: MuscleBtn(muscle: "Shoulder"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: MuscleBtn(muscle: "shounders"),
-                      ),
+                      ex1 == null
+                          ? Text("")
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MuscleBtn(muscle: ex1 ?? ""),
+                            ),
+                      ex2 == null
+                          ? Text("")
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MuscleBtn(muscle: ex2 ?? ""),
+                            ),
+                      ex3 == null
+                          ? Text("")
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MuscleBtn(muscle: ex3 ?? ""),
+                            ),
+                      ex4 == null
+                          ? Text("")
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MuscleBtn(muscle: ex4 ?? ""),
+                            ),
+                      ex5 == null
+                          ? Text("")
+                          : Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: MuscleBtn(muscle: ex5 ?? ""),
+                            ),
                     ],
                   ),
                 ),

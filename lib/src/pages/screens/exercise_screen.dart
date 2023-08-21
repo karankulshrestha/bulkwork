@@ -1,5 +1,6 @@
 import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/methods/reset_full_gym_days.dart';
+import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/pages/weeks/full_week_screen.dart';
 import 'package:bulkwork/src/widgets/month_card.dart';
 import 'package:bulkwork/src/widgets/progress_wid.dart';
@@ -18,7 +19,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
     super.initState();
-    FullGymExercise().getMusclesDetails(week: "week 1");
+    ResetFullGymDays();
   }
 
   @override

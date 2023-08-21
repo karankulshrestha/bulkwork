@@ -9,38 +9,27 @@ void ResetFullGymDays() async {
       day: 'Day 1',
       ex1: "Chest",
       ex2: "Shoulders",
-      ex3: "Triceps");
+      ex3: "Triceps",
+      restday: false);
   res = await FullGymExercise().registerExercise(
-    week: "Week 1",
-    day: 'Day 2',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 1", day: 'Day 2', ex1: "Legs", ex2: "Abs", restday: false);
   res = await FullGymExercise().registerExercise(
-    week: "Week 1",
-    day: 'Day 3',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 1", day: 'Day 3', ex1: "Back", ex2: "Biceps", restday: false);
+
   res = await FullGymExercise().registerExercise(
-    week: "Week 1",
-    day: 'Day 5',
-    ex1: "Chest",
-    ex2: "Shoulders",
-    ex3: "Triceps",
-  );
+      week: "Week 1", day: 'Day 4', ex1: "Back", ex2: "Biceps", restday: true);
+
   res = await FullGymExercise().registerExercise(
-    week: "Week 1",
-    day: 'Day 6',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 1",
+      day: 'Day 5',
+      ex1: "Chest",
+      ex2: "Shoulders",
+      ex3: "Triceps",
+      restday: false);
   res = await FullGymExercise().registerExercise(
-    week: "Week 1",
-    day: 'Day 7',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 1", day: 'Day 6', ex1: "Legs", ex2: "Abs", restday: false);
+  res = await FullGymExercise().registerExercise(
+      week: "Week 1", day: 'Day 7', ex1: "Back", ex2: "Biceps", restday: false);
 
   // week 2
 
@@ -49,130 +38,93 @@ void ResetFullGymDays() async {
       day: 'Day 1',
       ex1: "Chest",
       ex2: "Shoulders",
-      ex3: "Triceps");
+      ex3: "Triceps",
+      restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 2",
-    day: 'Day 2',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 2", day: 'Day 2', ex1: "Legs", ex2: "Abs", restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 2",
-    day: 'Day 3',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
-  res = await FullGymExercise().registerExercise(
-    week: "Week 2",
-    day: 'Day 5',
-    ex1: "Chest",
-    ex2: "Shoulders",
-    ex3: "Triceps",
-  );
+      week: "Week 2", day: 'Day 3', ex1: "Back", ex2: "Biceps", restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 2",
-    day: 'Day 6',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 2", day: 'Day 4', ex1: "Back", ex2: "Biceps", restday: true);
+
   res = await FullGymExercise().registerExercise(
-    week: "Week 2",
-    day: 'Day 7',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 2",
+      day: 'Day 5',
+      ex1: "Chest",
+      ex2: "Shoulders",
+      ex3: "Triceps",
+      restday: false);
+
+  res = await FullGymExercise().registerExercise(
+      week: "Week 2", day: 'Day 6', ex1: "Legs", ex2: "Abs", restday: false);
+  res = await FullGymExercise().registerExercise(
+      week: "Week 2", day: 'Day 7', ex1: "Back", ex2: "Biceps", restday: false);
 
   // week 3
   res = await FullGymExercise().registerExercise(
-    week: "Week 3",
-    day: 'Day 1',
-    ex1: "Chest",
-    ex2: "Shoulders",
-    ex3: "Triceps",
-  );
+      week: "Week 3",
+      day: 'Day 1',
+      ex1: "Chest",
+      ex2: "Shoulders",
+      ex3: "Triceps",
+      restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 3",
-    day: 'Day 2',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 3", day: 'Day 2', ex1: "Legs", ex2: "Abs", restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 3",
-    day: 'Day 3',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 3", day: 'Day 3', ex1: "Back", ex2: "Biceps", restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 3",
-    day: 'Day 5',
-    ex1: "Chest",
-    ex2: "Shoulders",
-    ex3: "Triceps",
-  );
+      week: "Week 3", day: 'Day 4', ex1: "Back", ex2: "Biceps", restday: true);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 3",
-    day: 'Day 6',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 3",
+      day: 'Day 5',
+      ex1: "Chest",
+      ex2: "Shoulders",
+      ex3: "Triceps",
+      restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 3",
-    day: 'Day 7',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 3", day: 'Day 6', ex1: "Legs", ex2: "Abs", restday: false);
+
+  res = await FullGymExercise().registerExercise(
+      week: "Week 3", day: 'Day 7', ex1: "Back", ex2: "Biceps", restday: false);
 
   // week 4
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 4",
-    day: 'Day 1',
-    ex1: "Chest",
-    ex2: "Shoulders",
-    ex3: "Triceps",
-  );
+      week: "Week 4",
+      day: 'Day 1',
+      ex1: "Chest",
+      ex2: "Shoulders",
+      ex3: "Triceps",
+      restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 4",
-    day: 'Day 2',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 4", day: 'Day 2', ex1: "Legs", ex2: "Abs", restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 4",
-    day: 'Day 3',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 4", day: 'Day 3', ex1: "Back", ex2: "Biceps", restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 4",
-    day: 'Day 5',
-    ex1: "Chest",
-    ex2: "Shoulders",
-    ex3: "Triceps",
-  );
+      week: "Week 4", day: 'Day 4', ex1: "Back", ex2: "Biceps", restday: true);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 4",
-    day: 'Day 6',
-    ex1: "Legs",
-    ex2: "Abs",
-  );
+      week: "Week 4",
+      day: 'Day 5',
+      ex1: "Chest",
+      ex2: "Shoulders",
+      ex3: "Triceps",
+      restday: false);
 
   res = await FullGymExercise().registerExercise(
-    week: "Week 4",
-    day: 'Day 7',
-    ex1: "Back",
-    ex2: "Biceps",
-  );
+      week: "Week 4", day: 'Day 6', ex1: "Legs", ex2: "Abs", restday: false);
+
+  res = await FullGymExercise().registerExercise(
+      week: "Week 4", day: 'Day 7', ex1: "Back", ex2: "Biceps", restday: false);
 }
