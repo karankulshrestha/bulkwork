@@ -1,11 +1,11 @@
+import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/methods/states/fullGymMuscle.dart';
 import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/widgets/manageBtn.dart';
-import 'package:bulkwork/src/widgets/muscle_btn.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DayManager extends StatefulWidget {
+class DayManager extends ConsumerStatefulWidget {
   final String day, week;
   final FullGymDays fullGymDays;
   const DayManager(
@@ -15,10 +15,10 @@ class DayManager extends StatefulWidget {
       required this.week});
 
   @override
-  State<DayManager> createState() => _DayManagerState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _DayManagerState();
 }
 
-class _DayManagerState extends State<DayManager> {
+class _DayManagerState extends ConsumerState<DayManager> {
   List<String> muscles = [];
 
   @override
@@ -49,7 +49,9 @@ class _DayManagerState extends State<DayManager> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -97,7 +99,16 @@ class _DayManagerState extends State<DayManager> {
                                   ),
                                   child: IconButton(
                                     onPressed: () {
-                                      muscles.remove(e);
+                                      int index = muscles.indexOf(e);
+                                      if (muscles.length > 2) {
+                                        setState(() {
+                                          muscles = List.from(muscles)
+                                            ..removeAt(index);
+                                        });
+                                      } else {
+                                        showSnackBar(context,
+                                            "Minimum 2 Exercises required");
+                                      }
                                     },
                                     icon: Icon(Icons.delete),
                                     color: Colors.white,
@@ -129,7 +140,50 @@ class _DayManagerState extends State<DayManager> {
                           child: const Text('Cancel'),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (context) => AlertDialog(
+                            //     title: Text('Enter new muscle'),
+                            //     content: TextField(
+                            //       decoration: InputDecoration(
+                            //           hintText: 'Name of the new muscle'),
+                            //     ),
+                            //     actions: [
+                            //       TextButton(
+                            //         onPressed: () {},
+                            //         child: Text('Submit'),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // );
+
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    content: Container(
+                                      height: 400,
+                                      width: double.maxFinite,
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: ListView(
+                                                shrinkWrap: true,
+                                                children: <Widget>[
+                                                  SimpleDialogOption(
+                                                    child: const Text('horse'),
+                                                    onPressed: () {},
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ]),
+                                    ),
+                                  );
+                                });
+                          },
                           // style: ButtonStyle(elevation: MaterialStateProperty(12.0 )),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.purple,

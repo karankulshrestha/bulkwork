@@ -6,6 +6,10 @@ class FullGymMuscleList extends Notifier<List<String>> {
     return [];
   }
 
+  void addMuscle(String name) {
+    state = [...state, name];
+  }
+
   void removeMuscle(int index) {
     state.removeAt(index);
     state = [...state];
