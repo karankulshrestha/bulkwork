@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FullGymDays {
-  final String? ex1;
-  final String? ex2;
-  final String? ex3;
-  final String? ex4;
-  final String? ex5;
-  final bool? restday;
+  String? ex1;
+  String? ex2;
+  String? ex3;
+  String? ex4;
+  String? ex5;
+  bool? restday;
 
-  const FullGymDays({
+  FullGymDays({
     required this.ex1,
     required this.ex2,
     required this.restday,
@@ -33,6 +33,7 @@ class FullGymDays {
         "ex3": ex3,
         "ex4": ex4,
         "ex5": ex5,
-        "restday": restday
+        "restday": restday,
+        "updatedAt": DateTime.now()
       };
 }

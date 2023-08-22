@@ -5,6 +5,7 @@ import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/widgets/day_rect.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FullWeekGym extends StatefulWidget {
   final String week;
@@ -15,6 +16,11 @@ class FullWeekGym extends StatefulWidget {
 }
 
 class _FullWeekGymState extends State<FullWeekGym> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,56 +66,61 @@ class _FullWeekGymState extends State<FullWeekGym> {
             ),
             new ListView(
               scrollDirection: Axis.vertical,
-              shrinkWrap: true,
               children: [
-                SizedBox(
-                  height: 80,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 1",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 2",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 3",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 4",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 5",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 6",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DayRect(
-                  week: widget.week,
-                  day: "Day 7",
+                Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 80,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 1",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 2",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 3",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 4",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 5",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 6",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DayRect(
+                        week: widget.week,
+                        day: "Day 7",
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

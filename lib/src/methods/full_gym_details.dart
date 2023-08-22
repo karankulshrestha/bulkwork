@@ -1,8 +1,8 @@
 import 'dart:ffi';
-
 import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 
 class FullGymExercise {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -46,14 +46,19 @@ class FullGymExercise {
   Future<FullGymDays?> getMusclesDetails(
       {required String week, required String day}) async {
     String uid = await _auth.currentUser!.uid;
-    var muscleData = await _firestore
+
+    final muscleDataRef = await _firestore
         .collection("FullGymDays")
         .doc(uid)
         .collection(week)
         .doc(uid)
         .collection(day)
-        .doc(uid)
-        .get();
+        .doc(uid);
+
+    const source = Source.cache;
+
+    final muscleData = await muscleDataRef.get(GetOptions(source: source));
+
     FullGymDays? data;
 
     if (muscleData.data() != null) {

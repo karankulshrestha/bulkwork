@@ -1,9 +1,10 @@
 import 'package:bulkwork/src/features/utils/utils.dart';
-import 'package:bulkwork/src/methods/states/fullGymMuscle.dart';
 import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/widgets/manageBtn.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DayManager extends ConsumerStatefulWidget {
   final String day, week;
@@ -28,10 +29,13 @@ class _DayManagerState extends ConsumerState<DayManager> {
   }
 
   saveDayDetails() {
-    muscles.addAll([
-      widget.fullGymDays.ex1!,
-      widget.fullGymDays.ex2!,
-    ]);
+    if (widget.fullGymDays.ex1 != null) {
+      muscles.add(widget.fullGymDays.ex1!);
+    }
+
+    if (widget.fullGymDays.ex2 != null) {
+      muscles.add(widget.fullGymDays.ex2!);
+    }
 
     if (widget.fullGymDays.ex3 != null) {
       muscles.add(widget.fullGymDays.ex3!);
@@ -46,6 +50,39 @@ class _DayManagerState extends ConsumerState<DayManager> {
     }
 
     print("day manage: ${muscles.length}");
+  }
+
+  void removeMuscle(String name) async {
+    String uid = await FirebaseAuth.instance.currentUser!.uid;
+
+    if (widget.fullGymDays.ex1 == name) {
+      widget.fullGymDays.ex1 = null;
+    }
+
+    if (widget.fullGymDays.ex2 == name) {
+      widget.fullGymDays.ex2 = null;
+    }
+
+    if (widget.fullGymDays.ex3 == name) {
+      widget.fullGymDays.ex3 = null;
+    }
+
+    if (widget.fullGymDays.ex4 == name) {
+      widget.fullGymDays.ex4 = null;
+    }
+
+    if (widget.fullGymDays.ex5 == name) {
+      widget.fullGymDays.ex5 = null;
+    }
+
+    await FirebaseFirestore.instance
+        .collection("FullGymDays")
+        .doc(uid)
+        .collection(widget.week)
+        .doc(uid)
+        .collection(widget.day)
+        .doc(uid)
+        .set(widget.fullGymDays.toJson());
   }
 
   @override
@@ -101,6 +138,7 @@ class _DayManagerState extends ConsumerState<DayManager> {
                                     onPressed: () {
                                       int index = muscles.indexOf(e);
                                       if (muscles.length > 2) {
+                                        removeMuscle(e);
                                         setState(() {
                                           muscles = List.from(muscles)
                                             ..removeAt(index);
@@ -166,20 +204,21 @@ class _DayManagerState extends ConsumerState<DayManager> {
                                       height: 400,
                                       width: double.maxFinite,
                                       child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: ListView(
-                                                shrinkWrap: true,
-                                                children: <Widget>[
-                                                  SimpleDialogOption(
-                                                    child: const Text('horse'),
-                                                    onPressed: () {},
-                                                  )
-                                                ],
-                                              ),
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: ListView(
+                                              shrinkWrap: true,
+                                              children: <Widget>[
+                                                SimpleDialogOption(
+                                                  child: const Text('horse'),
+                                                  onPressed: () {},
+                                                )
+                                              ],
                                             ),
-                                          ]),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 });

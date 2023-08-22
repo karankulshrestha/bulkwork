@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/pages/screens/dayManage.dart';
@@ -17,6 +19,9 @@ class _DayRectState extends State<DayRect> {
   late String? ex1, ex2, ex3, ex4, ex5;
   late FullGymDays? muscleObj;
   late bool? restDay;
+  late List<String?> muscles;
+  bool isLoading = false;
+  bool didDispose = false;
 
   @override
   void initState() {
@@ -26,11 +31,16 @@ class _DayRectState extends State<DayRect> {
     ex3 = "";
     ex4 = "";
     ex5 = "";
+    muscles = [];
     restDay = false;
     getMuscle();
   }
 
   Future getMuscle() async {
+    setState(() {
+      isLoading = true;
+    });
+
     muscleObj = await FullGymExercise()
         .getMusclesDetails(week: widget.week, day: widget.day);
 
@@ -40,7 +50,10 @@ class _DayRectState extends State<DayRect> {
       ex3 = muscleObj!.ex3;
       ex4 = muscleObj!.ex4;
       ex5 = muscleObj!.ex5;
-      restDay = muscleObj!.restday!;
+      restDay = muscleObj!.restday;
+    });
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -93,92 +106,98 @@ class _DayRectState extends State<DayRect> {
                   ],
                 ),
               )
-            : Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                height: 220,
-                width: 340,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 19, 46, 145),
-                      Color.fromARGB(255, 102, 4, 109),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                  color: Colors.green,
-                ),
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxHeight: double.infinity,
-                  ),
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    runSpacing: 3,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 15, left: 15, right: 10),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => DayManager(
-                                  fullGymDays: muscleObj!,
-                                  day: widget.day,
-                                  week: widget.week,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            widget.day,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white),
-                          ),
-                        ),
+            : isLoading
+                ? CircularProgressIndicator(
+                    color: Colors.purple,
+                  )
+                : Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    height: 220,
+                    width: 340,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 19, 46, 145),
+                          Color.fromARGB(255, 102, 4, 109),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                      ex1 == null
-                          ? Text("")
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: MuscleBtn(muscle: ex1 ?? ""),
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: Colors.green,
+                    ),
+                    child: Container(
+                      constraints: BoxConstraints(
+                        maxHeight: double.infinity,
+                      ),
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        runSpacing: 3,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 15, right: 10),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => DayManager(
+                                      fullGymDays: muscleObj!,
+                                      day: widget.day,
+                                      week: widget.week,
+                                    ),
+                                  ),
+                                ).then(
+                                  (_) => {getMuscle()},
+                                );
+                              },
+                              child: Text(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                widget.day,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white),
+                              ),
                             ),
-                      ex2 == null
-                          ? Text("")
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: MuscleBtn(muscle: ex2 ?? ""),
-                            ),
-                      ex3 == null
-                          ? Text("")
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: MuscleBtn(muscle: ex3 ?? ""),
-                            ),
-                      ex4 == null
-                          ? Text("")
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: MuscleBtn(muscle: ex4 ?? ""),
-                            ),
-                      ex5 == null
-                          ? Text("")
-                          : Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: MuscleBtn(muscle: ex5 ?? ""),
-                            ),
-                    ],
+                          ),
+                          ex1 == null
+                              ? Text("")
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: MuscleBtn(muscle: ex1 ?? ""),
+                                ),
+                          ex2 == null
+                              ? Text("")
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: MuscleBtn(muscle: ex2 ?? ""),
+                                ),
+                          ex3 == null
+                              ? Text("")
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: MuscleBtn(muscle: ex3 ?? ""),
+                                ),
+                          ex4 == null
+                              ? Text("")
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: MuscleBtn(muscle: ex4 ?? ""),
+                                ),
+                          ex5 == null
+                              ? Text("")
+                              : Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: MuscleBtn(muscle: ex5 ?? ""),
+                                ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
       ),
     );
   }
