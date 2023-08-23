@@ -82,12 +82,29 @@ class _DayRectState extends State<DayRect> {
                     ),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: Text(
-                        widget.day,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromARGB(255, 246, 245, 245),
-                            fontSize: 25),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => DayManager(
+                                fullGymDays: muscleObj!,
+                                day: widget.day,
+                                week: widget.week,
+                                toggle: true,
+                              ),
+                            ),
+                          ).then(
+                            (_) => {getMuscle()},
+                          );
+                        },
+                        child: Text(
+                          widget.day,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromARGB(255, 246, 245, 245),
+                              fontSize: 25),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -146,6 +163,7 @@ class _DayRectState extends State<DayRect> {
                                       fullGymDays: muscleObj!,
                                       day: widget.day,
                                       week: widget.week,
+                                      toggle: false,
                                     ),
                                   ),
                                 ).then(
