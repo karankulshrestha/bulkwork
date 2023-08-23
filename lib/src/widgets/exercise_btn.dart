@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-class MuscleBtn extends StatelessWidget {
+class ExerciseBtn extends StatelessWidget {
   final String muscle;
   final VoidCallback Btn;
-  const MuscleBtn({super.key, required this.muscle, required this.Btn});
+  const ExerciseBtn({super.key, required this.muscle, required this.Btn});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 44.0,
+      width: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
         gradient: LinearGradient(
           colors: [
-            Color.fromARGB(255, 65, 21, 225),
-            Color.fromARGB(255, 240, 54, 200)
+            Color.fromARGB(255, 51, 46, 177),
+            Color.fromARGB(255, 210, 48, 175)
           ],
         ),
       ),

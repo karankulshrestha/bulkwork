@@ -1,11 +1,6 @@
-import 'package:bulkwork/src/features/utils/utils.dart';
-import 'package:bulkwork/src/methods/full_gym_details.dart';
-import 'package:bulkwork/src/methods/reset_full_gym_days.dart';
-import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/widgets/day_rect.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FullWeekGym extends StatefulWidget {
   final String week;

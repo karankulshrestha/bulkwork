@@ -512,6 +512,7 @@ class _DayManagerState extends ConsumerState<DayManager> {
                             children: [
                               MuscleBtn(
                                 muscle: "Enable/Disable Rest Day",
+                                Btn: () {},
                               ),
                               SizedBox(
                                 width: 20,

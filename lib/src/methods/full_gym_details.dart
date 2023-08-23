@@ -1,8 +1,6 @@
-import 'dart:ffi';
 import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firestore_cache/firestore_cache.dart';
 
 class FullGymExercise {
   final FirebaseAuth _auth = FirebaseAuth.instance;

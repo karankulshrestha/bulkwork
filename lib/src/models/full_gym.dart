@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class FullGymDays {
   String? ex1;
   String? ex2;

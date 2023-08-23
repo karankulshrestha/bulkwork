@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/models/full_gym.dart';
 import 'package:bulkwork/src/pages/screens/dayManage.dart';
+import 'package:bulkwork/src/pages/screens/exercise_details.dart';
 import 'package:bulkwork/src/widgets/muscle_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -186,31 +185,111 @@ class _DayRectState extends State<DayRect> {
                               ? Text("")
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: MuscleBtn(muscle: ex1 ?? ""),
+                                  child: MuscleBtn(
+                                    muscle: ex1 ?? "",
+                                    Btn: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) => ExerciseDetails(
+                                            exercise: ex1 ?? "",
+                                            day: widget.day,
+                                            week: widget.week,
+                                          ),
+                                        ),
+                                      ).then(
+                                        (_) => {getMuscle()},
+                                      );
+                                    },
+                                  ),
                                 ),
                           ex2 == null
                               ? Text("")
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: MuscleBtn(muscle: ex2 ?? ""),
+                                  child: MuscleBtn(
+                                      muscle: ex2 ?? "",
+                                      Btn: () {
+                                        Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                            builder: (context) =>
+                                                ExerciseDetails(
+                                              exercise: ex2 ?? "",
+                                              day: widget.day,
+                                              week: widget.week,
+                                            ),
+                                          ),
+                                        ).then(
+                                          (_) => {getMuscle()},
+                                        );
+                                      }),
                                 ),
                           ex3 == null
                               ? Text("")
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: MuscleBtn(muscle: ex3 ?? ""),
+                                  child: MuscleBtn(
+                                    muscle: ex3 ?? "",
+                                    Btn: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) => ExerciseDetails(
+                                            exercise: ex3 ?? "",
+                                            day: widget.day,
+                                            week: widget.week,
+                                          ),
+                                        ),
+                                      ).then(
+                                        (_) => {getMuscle()},
+                                      );
+                                    },
+                                  ),
                                 ),
                           ex4 == null
                               ? Text("")
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: MuscleBtn(muscle: ex4 ?? ""),
+                                  child: MuscleBtn(
+                                    muscle: ex4 ?? "",
+                                    Btn: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) => ExerciseDetails(
+                                            exercise: ex4 ?? "",
+                                            day: widget.day,
+                                            week: widget.week,
+                                          ),
+                                        ),
+                                      ).then(
+                                        (_) => {getMuscle()},
+                                      );
+                                    },
+                                  ),
                                 ),
                           ex5 == null
                               ? Text("")
                               : Padding(
                                   padding: const EdgeInsets.all(4.0),
-                                  child: MuscleBtn(muscle: ex5 ?? ""),
+                                  child: MuscleBtn(
+                                    muscle: ex5 ?? "",
+                                    Btn: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) => ExerciseDetails(
+                                            exercise: ex5 ?? "",
+                                            day: widget.day,
+                                            week: widget.week,
+                                          ),
+                                        ),
+                                      ).then(
+                                        (_) => {getMuscle()},
+                                      );
+                                    },
+                                  ),
                                 ),
                         ],
                       ),

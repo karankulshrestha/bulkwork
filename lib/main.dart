@@ -1,4 +1,3 @@
-import 'package:bulkwork/src/features/authentication/screens/main_screen.dart';
 import 'package:bulkwork/src/features/authentication/screens/welcome_screen.dart';
 import 'package:bulkwork/src/pages/screens/home_screen.dart';
 import 'package:bulkwork/src/utils/theme/theme.dart';
