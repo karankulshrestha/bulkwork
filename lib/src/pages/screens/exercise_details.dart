@@ -1,8 +1,45 @@
 import 'package:bulkwork/src/widgets/exercise_btn.dart';
 import 'package:bulkwork/src/widgets/exercise_col_widget.dart';
-import 'package:bulkwork/src/widgets/manageBtn.dart';
-import 'package:bulkwork/src/widgets/muscle_btn.dart';
 import 'package:flutter/material.dart';
+
+class CustomDialog extends StatelessWidget {
+  final String title;
+  final VoidCallback func;
+  const CustomDialog({super.key, required this.title, required this.func});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      scrollable: true,
+      title: Text(title),
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Exercise Name',
+                ),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Sets',
+                ),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Reps',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [ElevatedButton(child: Text("Submit"), onPressed: () => func())],
+    );
+  }
+}
 
 class ExerciseDetails extends StatefulWidget {
   final String exercise, week, day;
@@ -19,6 +56,14 @@ class ExerciseDetails extends StatefulWidget {
 class _ExerciseDetailsState extends State<ExerciseDetails> {
   bool _isEnabled = false;
 
+  void addNewExercise() {
+    print("dialog working...");
+  }
+
+  void editExistingExercise() {
+    print("edit dialog working...");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +76,7 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
       ),
       child: SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 33, 26, 133),
@@ -51,33 +96,35 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                     SizedBox(
                       height: 30,
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 25, 9, 113),
-                            Color.fromARGB(255, 125, 21, 108)
+                    SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(255, 25, 9, 113),
+                              Color.fromARGB(255, 125, 21, 108)
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.day,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ExerciseBtn(muscle: widget.exercise, Btn: () {}),
                           ],
                         ),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.day,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          ExerciseBtn(muscle: widget.exercise, Btn: () {}),
-                        ],
                       ),
                     ),
                     SizedBox(
@@ -141,26 +188,102 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                             SizedBox(
                               height: 40,
                             ),
-                            ExerciseColWidget(
-                              isEnabled: _isEnabled,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CustomDialog(
+                                            title: "ex1",
+                                            func: editExistingExercise);
+                                      },
+                                    );
+                                  },
+                                  child: ExerciseColWidget(),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            ExerciseColWidget(
-                              isEnabled: _isEnabled,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: ExerciseColWidget(),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            ExerciseColWidget(
-                              isEnabled: _isEnabled,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: ExerciseColWidget(),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            ExerciseColWidget(
-                              isEnabled: _isEnabled,
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: ExerciseColWidget(),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,
@@ -170,40 +293,9 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        scrollable: true,
-                                        title: Text('Add Exercise'),
-                                        content: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Form(
-                                            child: Column(
-                                              children: <Widget>[
-                                                TextFormField(
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Exercise Name',
-                                                  ),
-                                                ),
-                                                TextFormField(
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Sets',
-                                                  ),
-                                                ),
-                                                TextFormField(
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Reps',
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        actions: [
-                                          ElevatedButton(
-                                              child: Text("Submit"),
-                                              onPressed: () {
-                                                // your code
-                                              })
-                                        ],
+                                      return CustomDialog(
+                                        title: "Add the exercise",
+                                        func: addNewExercise,
                                       );
                                     });
                               },
@@ -219,36 +311,6 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                TextButton.icon(
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.all(10),
-                                    textStyle: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 194, 25, 186)),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 219, 217, 217),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(24.0),
-                                    ),
-                                  ),
-                                  onPressed: () => {
-                                    setState(
-                                      () {
-                                        _isEnabled = true;
-                                      },
-                                    ),
-                                  },
-                                  icon: Icon(
-                                    Icons.edit,
-                                    color: Color.fromARGB(255, 54, 7, 114),
-                                  ),
-                                  label: Text(
-                                    'Confirm Exercise',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 54, 7, 114),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
                                 TextButton.icon(
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
