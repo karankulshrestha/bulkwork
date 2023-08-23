@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ExerciseColWidget extends StatelessWidget {
-  const ExerciseColWidget({super.key});
+class ExerciseColWidget extends StatefulWidget {
+  final bool isEnabled;
+  const ExerciseColWidget({super.key, required this.isEnabled});
 
+  @override
+  State<ExerciseColWidget> createState() => _ExerciseColWidgetState();
+}
+
+class _ExerciseColWidgetState extends State<ExerciseColWidget> {
+  bool _isEnable = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,28 +33,100 @@ class ExerciseColWidget extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "Shoulder press",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          InkWell(
+            onTap: () {
+              setState(() {
+                _isEnable = true;
+              });
+            },
+            child: Container(
+              width: 140,
+              child: TextField(
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 254, 254),
+                  fontSize: 18,
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Shoulder press",
+                  hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 255, 254, 254),
+                    fontSize: 18,
+                  ),
+                ),
+                enabled: _isEnable,
+              ),
+            ),
           ),
-          Text(
-            "3",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          InkWell(
+            onTap: () {
+              setState(() {
+                _isEnable = true;
+              });
+            },
+            child: Container(
+              width: 40,
+              child: TextField(
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 254, 254),
+                  fontSize: 18,
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "3",
+                  hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 255, 254, 254),
+                    fontSize: 18,
+                  ),
+                ),
+                enabled: _isEnable,
+              ),
+            ),
           ),
-          Text(
-            "X",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          Container(
+            width: 40,
+            child: Text(
+              "X",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
-          Text(
-            "12",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          InkWell(
+            onTap: () {
+              setState(() {
+                _isEnable = true;
+              });
+            },
+            child: Container(
+              width: 40,
+              child: TextField(
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 254, 254),
+                  fontSize: 18,
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "12",
+                  hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 255, 254, 254),
+                    fontSize: 18,
+                  ),
+                ),
+                enabled: _isEnable,
+              ),
+            ),
           ),
+          InkWell(
+            onTap: () {},
+            child: Icon(
+              Icons.remove,
+              color: Colors.white,
+            ),
+          )
         ],
       ),
     );
