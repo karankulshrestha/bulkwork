@@ -1,7 +1,7 @@
+import 'package:bulkwork/src/methods/full_gym_exercise.dart';
 import 'package:bulkwork/src/widgets/exercise_btn.dart';
 import 'package:bulkwork/src/widgets/exercise_col_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomDialog extends StatelessWidget {
@@ -61,10 +61,19 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
   String exersise = "";
   String reps = "";
   String sets = "";
+  List exercises = [];
 
   @override
   void initState() {
     super.initState();
+    exercises = [];
+    getExercise();
+  }
+
+  void getExercise() async {
+    exercises = await FullGymExerciseDetails()
+        .getExercideDetails(week: widget.week, muscle: widget.exercise);
+    print(exercises);
   }
 
   void addNewExercise() {
@@ -77,6 +86,7 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print(exercises[0]["exercise"]);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -199,21 +209,96 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                             SizedBox(
                               height: 40,
                             ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     InkWell(
+                            //       onTap: () {
+                            //         showDialog(
+                            //           context: context,
+                            //           builder: (BuildContext context) {
+                            //             return CustomDialog(
+                            //                 title: "ex1",
+                            //                 func: editExistingExercise);
+                            //           },
+                            //         );
+                            //       },
+                            //       child: ExerciseColWidget(),
+                            //     ),
+                            //     SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     InkWell(
+                            //       onTap: () {},
+                            //       child: Icon(
+                            //         Icons.delete,
+                            //         color: Colors.white,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     InkWell(
+                            //       onTap: () {},
+                            //       child: ExerciseColWidget(),
+                            //     ),
+                            //     SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     InkWell(
+                            //       onTap: () {},
+                            //       child: Icon(
+                            //         Icons.delete,
+                            //         color: Colors.white,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     InkWell(
+                            //       onTap: () {},
+                            //       child: ExerciseColWidget(),
+                            //     ),
+                            //     SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     InkWell(
+                            //       onTap: () {},
+                            //       child: Icon(
+                            //         Icons.delete,
+                            //         color: Colors.white,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+                            // SizedBox(
+                            //   width: 10,
+                            // ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return CustomDialog(
-                                            title: "ex1",
-                                            func: editExistingExercise);
-                                      },
-                                    );
-                                  },
-                                  child: ExerciseColWidget(),
+                                  onTap: () {},
+                                  child: exercises[0] != null
+                                      ? ExerciseColWidget(
+                                          exercise: exercises[0]["exercise"],
+                                          reps: exercises[0]["reps"],
+                                          sets: exercises[0]["sets"],
+                                        )
+                                      : Text(""),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -227,75 +312,7 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: ExerciseColWidget(),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: ExerciseColWidget(),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: ExerciseColWidget(),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
+
                             SizedBox(
                               height: 20,
                             ),

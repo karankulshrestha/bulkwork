@@ -23,11 +23,10 @@ class FullGymExerciseDetails {
         FullGymExModel fullGymExDetails = FullGymExModel(
             ex: ex, reps: reps, sets: sets, muscle: muscle, week: week);
 
-        await _firestore
-            .collection("FullGymExDetails")
-            .doc(uid)
-            .collection(week)
-            .add(fullGymExDetails.toJson());
+        await _firestore.collection("FullGymExDetails").add(
+              fullGymExDetails.toJson(),
+            );
+
         res = "success";
       }
     } catch (e) {
@@ -36,30 +35,33 @@ class FullGymExerciseDetails {
     return res;
   }
 
-  Future<FullGymDays?> getMusclesDetails(
-      {required String week, required String day, required String exer}) async {
+  Future<List> getExercideDetails(
+      {required String week, required String muscle}) async {
+    final temp = {"exercise": "", "reps": "", "sets": ""};
+
+    List exeObj = [];
     String uid = await _auth.currentUser!.uid;
 
-    final muscleDataRef = await _firestore
-        .collection("FullGymExDetails")
-        .doc(uid)
-        .collection(week)
-        .doc(uid)
-        .collection(day)
-        .doc(uid);
-
-    const source = Source.cache;
-
-    final muscleData = await muscleDataRef.get(GetOptions(source: source));
+    QuerySnapshot snap = await _firestore.collection("FullGymExDetails").get();
 
     FullGymDays? data;
 
-    if (muscleData.data() != null) {
-      data = FullGymDays.fromSnap(muscleData.data()!);
-    }
+    snap.docs.forEach(
+      (document) {
+        if (document["week"] == week &&
+            document["muscle"] == muscle &&
+            document["uid"] == uid) {
+          temp.addAll({
+            "exercise": document["ex"],
+            "reps": document["reps"],
+            "sets": document["sets"]
+          });
 
-    print(data!.ex1);
-
-    return data;
+          exeObj.add(temp);
+        }
+      },
+    );
+    // print(exeObj);
+    return exeObj;
   }
 }

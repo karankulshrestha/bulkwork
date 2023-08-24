@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ExerciseColWidget extends StatelessWidget {
-  const ExerciseColWidget({super.key});
+  final String exercise, reps, sets;
+  const ExerciseColWidget(
+      {super.key,
+      required this.exercise,
+      required this.reps,
+      required this.sets});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,7 @@ class ExerciseColWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "standing barbell bicep curl",
+              exercise,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -38,7 +43,7 @@ class ExerciseColWidget extends StatelessWidget {
               ),
             ),
             Text(
-              "13",
+              reps,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -53,7 +58,7 @@ class ExerciseColWidget extends StatelessWidget {
                   fontSize: 14),
             ),
             Text(
-              "12",
+              sets,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

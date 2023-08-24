@@ -1,4 +1,5 @@
 import 'package:bulkwork/src/methods/full_gym_details.dart';
+import 'package:bulkwork/src/methods/full_gym_exercise.dart';
 import 'package:bulkwork/src/methods/reset_full_gym_days.dart';
 import 'package:bulkwork/src/methods/reset_full_gym_exercise.dart';
 import 'package:bulkwork/src/models/full_gym.dart';
@@ -21,7 +22,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   void initState() {
     super.initState();
     ResetFullGymDays();
-    resetFullGymExercise();
   }
 
   @override
