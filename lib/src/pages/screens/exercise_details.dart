@@ -1,6 +1,8 @@
 import 'package:bulkwork/src/widgets/exercise_btn.dart';
 import 'package:bulkwork/src/widgets/exercise_col_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
@@ -54,7 +56,16 @@ class ExerciseDetails extends StatefulWidget {
 }
 
 class _ExerciseDetailsState extends State<ExerciseDetails> {
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   bool _isEnabled = false;
+  String exersise = "";
+  String reps = "";
+  String sets = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void addNewExercise() {
     print("dialog working...");

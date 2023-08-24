@@ -7,7 +7,7 @@ class ExerciseColWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        width: 260,
+        width: 280,
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
@@ -30,19 +30,19 @@ class ExerciseColWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "Shoulder press",
+              "standing barbell bicep curl",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 14,
               ),
             ),
             Text(
-              "3",
+              "13",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 14,
               ),
             ),
             Text(
@@ -50,14 +50,14 @@ class ExerciseColWidget extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                  fontSize: 14),
             ),
             Text(
               "12",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                  fontSize: 14),
             ),
           ],
         ),
