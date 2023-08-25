@@ -1,16 +1,27 @@
+import 'package:bulkwork/src/features/utils/utils.dart';
 import 'package:bulkwork/src/methods/full_gym_exercise.dart';
 import 'package:bulkwork/src/widgets/exercise_btn.dart';
 import 'package:bulkwork/src/widgets/exercise_col_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CustomDialog extends StatelessWidget {
-  final String title;
-  final VoidCallback func;
-  const CustomDialog({super.key, required this.title, required this.func});
+  final String title, muscle, week;
+  final void Function(String name, String reps, String sets) addy;
+  const CustomDialog(
+      {super.key,
+      required this.title,
+      required this.muscle,
+      required this.week,
+      required this.addy});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _exController = new TextEditingController();
+    TextEditingController _reps = new TextEditingController();
+    TextEditingController _sets = new TextEditingController();
+
     return AlertDialog(
       scrollable: true,
       title: Text(title),
@@ -20,16 +31,19 @@ class CustomDialog extends StatelessWidget {
           child: Column(
             children: <Widget>[
               TextFormField(
+                controller: _exController,
                 decoration: InputDecoration(
                   labelText: 'Exercise Name',
                 ),
               ),
               TextFormField(
+                controller: _sets,
                 decoration: InputDecoration(
                   labelText: 'Sets',
                 ),
               ),
               TextFormField(
+                controller: _reps,
                 decoration: InputDecoration(
                   labelText: 'Reps',
                 ),
@@ -38,7 +52,19 @@ class CustomDialog extends StatelessWidget {
           ),
         ),
       ),
-      actions: [ElevatedButton(child: Text("Submit"), onPressed: () => func())],
+      actions: [
+        ElevatedButton(
+            child: Text("Submit"),
+            onPressed: () => {
+                  addy(_exController.text, _reps.text, _sets.text),
+                  FullGymExerciseDetails().registerExercise(
+                      week: week,
+                      ex: _exController.text,
+                      muscle: muscle,
+                      reps: _reps.text,
+                      sets: _sets.text),
+                })
+      ],
     );
   }
 }
@@ -75,8 +101,25 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
     });
   }
 
-  void addNewExercise() {
-    print("dialog working...");
+  void addNewExercise(String name, String reps, String sets) {
+    if (exercises.length > 5) {
+      showSnackBar(context, "Maximum 5 exercise allowed");
+    } else {
+      exercises = [
+        ...exercises,
+        [
+          {"ex": name, "reps": reps, "sets": sets}
+        ]
+      ];
+    }
+  }
+
+  Future deleteExercise(int index) async {
+    var obj = exercises[index];
+    await FirebaseFirestore.instance
+        .collection("FullGymExDetails")
+        .doc(obj["id"])
+        .delete();
   }
 
   void editExistingExercise() {
@@ -167,7 +210,11 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                       ),
                       child: SingleChildScrollView(
                         child: exercises.length == 0
-                            ? Container()
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.purple,
+                                ),
+                              )
                             : Column(
                                 children: [
                                   SizedBox(
@@ -212,124 +259,59 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                                   SizedBox(
                                     height: 40,
                                   ),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                  //     InkWell(
-                                  //       onTap: () {
-                                  //         showDialog(
-                                  //           context: context,
-                                  //           builder: (BuildContext context) {
-                                  //             return CustomDialog(
-                                  //                 title: "ex1",
-                                  //                 func: editExistingExercise);
-                                  //           },
-                                  //         );
-                                  //       },
-                                  //       child: ExerciseColWidget(),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       width: 10,
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: Icon(
-                                  //         Icons.delete,
-                                  //         color: Colors.white,
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: ExerciseColWidget(),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       width: 10,
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: Icon(
-                                  //         Icons.delete,
-                                  //         color: Colors.white,
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: ExerciseColWidget(),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       width: 10,
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: Icon(
-                                  //         Icons.delete,
-                                  //         color: Colors.white,
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                  // SizedBox(
-                                  //   width: 10,
-                                  // ),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: exercises[0] != null
-                                  //           ? ExerciseColWidget(
-                                  //               exercise: exercises[0]["exercise"],
-                                  //               reps: exercises[0]["reps"],
-                                  //               sets: exercises[0]["sets"],
-                                  //             )
-                                  //           : Text(""),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       width: 10,
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () {},
-                                  //       child: Icon(
-                                  //         Icons.delete,
-                                  //         color: Colors.white,
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-
                                   Column(
                                     children: [
                                       for (int i = 0;
                                           i < exercises.length;
                                           i++) ...[
-                                        ExerciseColWidget(
-                                          exercise: exercises[i]["ex"],
-                                          reps: exercises[i]["reps"],
-                                          sets: exercises[i]["sets"],
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {},
+                                                child: exercises[0] != null
+                                                    ? ExerciseColWidget(
+                                                        exercise: exercises[i]
+                                                            ["ex"],
+                                                        reps: exercises[i]
+                                                            ["reps"],
+                                                        sets: exercises[i]
+                                                            ["sets"],
+                                                      )
+                                                    : Text(""),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  if (exercises.length > 2) {
+                                                    await deleteExercise(i);
+                                                    setState(() {
+                                                      exercises =
+                                                          List.from(exercises)
+                                                            ..removeAt(i);
+                                                    });
+                                                  } else {
+                                                    showSnackBar(context,
+                                                        "Minimum 2 exercise required");
+                                                  }
+                                                },
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ]
                                     ],
                                   ),
-
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -340,7 +322,21 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                                           builder: (BuildContext context) {
                                             return CustomDialog(
                                               title: "Add the exercise",
-                                              func: addNewExercise,
+                                              muscle: widget.muscle,
+                                              week: widget.week,
+                                              addy: (String name, String set,
+                                                  String reps) {
+                                                setState(() {
+                                                  exercises = [
+                                                    ...exercises,
+                                                    {
+                                                      "ex": name,
+                                                      "reps": reps,
+                                                      "sets": set,
+                                                    }
+                                                  ];
+                                                });
+                                              },
                                             );
                                           });
                                     },

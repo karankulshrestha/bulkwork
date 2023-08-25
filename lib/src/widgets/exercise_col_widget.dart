@@ -13,7 +13,7 @@ class ExerciseColWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         width: 280,
-        height: 50,
+        height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           gradient: LinearGradient(
@@ -34,20 +34,24 @@ class ExerciseColWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              exercise,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
+            SizedBox(
+              width: 100,
+              child: Text(
+                exercise,
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
             Text(
-              reps,
+              sets,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 18,
               ),
             ),
             Text(
@@ -58,11 +62,11 @@ class ExerciseColWidget extends StatelessWidget {
                   fontSize: 14),
             ),
             Text(
-              sets,
+              reps,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 14),
+                  fontSize: 18),
             ),
           ],
         ),

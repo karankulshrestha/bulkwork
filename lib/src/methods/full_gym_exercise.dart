@@ -20,12 +20,17 @@ class FullGymExerciseDetails {
       if (ex.isNotEmpty) {
         String uid = await _auth.currentUser!.uid;
 
-        FullGymExModel fullGymExDetails = FullGymExModel(
-            ex: ex, reps: reps, sets: sets, muscle: muscle, week: week);
+        var obj = await _firestore.collection("FullGymExDetails");
 
-        await _firestore.collection("FullGymExDetails").add(
-              fullGymExDetails.toJson(),
-            );
+        FullGymExModel fullGymExDetails = FullGymExModel(
+          ex: ex,
+          reps: reps,
+          sets: sets,
+          muscle: muscle,
+          week: week,
+        );
+
+        await obj.add(fullGymExDetails.toJson());
 
         res = "success";
       }
@@ -51,16 +56,12 @@ class FullGymExerciseDetails {
         if (document["week"] == week &&
             document["muscle"] == muscle &&
             document["uid"] == uid) {
-          temp.addAll({
-            "exercise": document["ex"],
+          exeObj.add({
+            "ex": document["ex"],
             "reps": document["reps"],
-            "sets": document["sets"]
+            "sets": document["sets"],
+            "id": document.id
           });
-
-          exeObj.add(document.data());
-
-          // print(document.data());
-          // exeObj.add(temp);
         }
       },
     );
