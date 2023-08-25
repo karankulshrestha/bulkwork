@@ -209,147 +209,135 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: SingleChildScrollView(
-                        child: exercises.length == 0
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.purple,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 20,
                                 ),
-                              )
-                            : Column(
-                                children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        "Exercise",
-                                        style: TextStyle(
+                                Text(
+                                  "Exercise",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                SizedBox(
+                                  width: 60,
+                                ),
+                                Text(
+                                  "Sets",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  "Reps",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Column(
+                              children: [
+                                for (int i = 0; i < exercises.length; i++) ...[
+                                  Container(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: exercises[0] != null
+                                              ? ExerciseColWidget(
+                                                  exercise: exercises[i]["ex"],
+                                                  reps: exercises[i]["reps"],
+                                                  sets: exercises[i]["sets"],
+                                                )
+                                              : Text(""),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            if (exercises.length > 2) {
+                                              await deleteExercise(i);
+                                              setState(() {
+                                                exercises = List.from(exercises)
+                                                  ..removeAt(i);
+                                              });
+                                            } else {
+                                              showSnackBar(context,
+                                                  "Minimum 2 exercise required");
+                                            }
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      ),
-                                      SizedBox(
-                                        width: 60,
-                                      ),
-                                      Text(
-                                        "Sets",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      ),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
-                                      Text(
-                                        "Reps",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                  ),
-                                  Column(
-                                    children: [
-                                      for (int i = 0;
-                                          i < exercises.length;
-                                          i++) ...[
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                onTap: () {},
-                                                child: exercises[0] != null
-                                                    ? ExerciseColWidget(
-                                                        exercise: exercises[i]
-                                                            ["ex"],
-                                                        reps: exercises[i]
-                                                            ["reps"],
-                                                        sets: exercises[i]
-                                                            ["sets"],
-                                                      )
-                                                    : Text(""),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  if (exercises.length > 2) {
-                                                    await deleteExercise(i);
-                                                    setState(() {
-                                                      exercises =
-                                                          List.from(exercises)
-                                                            ..removeAt(i);
-                                                    });
-                                                  } else {
-                                                    showSnackBar(context,
-                                                        "Minimum 2 exercise required");
-                                                  }
-                                                },
-                                                child: Icon(
-                                                  Icons.delete,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ),
-                                      ]
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return CustomDialog(
-                                              title: "Add the exercise",
-                                              muscle: widget.muscle,
-                                              week: widget.week,
-                                              addy: (String name, String set,
-                                                  String reps) {
-                                                setState(() {
-                                                  exercises = [
-                                                    ...exercises,
-                                                    {
-                                                      "ex": name,
-                                                      "reps": reps,
-                                                      "sets": set,
-                                                    }
-                                                  ];
-                                                });
-                                              },
-                                            );
-                                          });
-                                    },
-                                    child: Icon(
-                                      Icons.add,
-                                      size: 40,
-                                      color: Colors.white,
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
+                                ]
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CustomDialog(
+                                        title: "Add the exercise",
+                                        muscle: widget.muscle,
+                                        week: widget.week,
+                                        addy: (String name, String set,
+                                            String reps) {
+                                          setState(() {
+                                            exercises = [
+                                              ...exercises,
+                                              {
+                                                "ex": name,
+                                                "reps": reps,
+                                                "sets": set,
+                                              }
+                                            ];
+                                          });
+                                        },
+                                      );
+                                    });
+                              },
+                              child: Icon(
+                                Icons.add,
+                                size: 40,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            exercises.length == 0
+                                ? Container()
+                                : Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -384,8 +372,8 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
+                          ],
+                        ),
                       ),
                     )
                   ],

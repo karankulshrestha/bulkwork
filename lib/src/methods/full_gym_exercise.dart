@@ -47,7 +47,11 @@ class FullGymExerciseDetails {
     List exeObj = [];
     String uid = await _auth.currentUser!.uid;
 
-    QuerySnapshot snap = await _firestore.collection("FullGymExDetails").get();
+    const source = Source.cache;
+
+    QuerySnapshot snap = await _firestore
+        .collection("FullGymExDetails")
+        .get(GetOptions(source: source));
 
     FullGymDays? data;
 
