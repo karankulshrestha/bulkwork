@@ -57,11 +57,14 @@ class FullGymExerciseDetails {
             "sets": document["sets"]
           });
 
-          exeObj.add(temp);
+          exeObj.add(document.data());
+
+          // print(document.data());
+          // exeObj.add(temp);
         }
       },
     );
-    // print(exeObj);
+    print("loda ${exeObj}");
     return exeObj;
   }
 }

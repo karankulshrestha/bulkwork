@@ -182,7 +182,7 @@ class _DayRectState extends State<DayRect> {
                             ),
                           ),
                           ex1 == null
-                              ? Text("")
+                              ? Container()
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: MuscleBtn(
@@ -192,19 +192,17 @@ class _DayRectState extends State<DayRect> {
                                         context,
                                         CupertinoPageRoute(
                                           builder: (context) => ExerciseDetails(
-                                            exercise: ex1 ?? "",
+                                            muscle: ex1 ?? "",
                                             day: widget.day,
                                             week: widget.week,
                                           ),
                                         ),
-                                      ).then(
-                                        (_) => {getMuscle()},
                                       );
                                     },
                                   ),
                                 ),
                           ex2 == null
-                              ? Text("")
+                              ? Container()
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: MuscleBtn(
@@ -215,18 +213,16 @@ class _DayRectState extends State<DayRect> {
                                           CupertinoPageRoute(
                                             builder: (context) =>
                                                 ExerciseDetails(
-                                              exercise: ex2 ?? "",
+                                              muscle: ex2 ?? "",
                                               day: widget.day,
                                               week: widget.week,
                                             ),
                                           ),
-                                        ).then(
-                                          (_) => {getMuscle()},
                                         );
                                       }),
                                 ),
                           ex3 == null
-                              ? Text("")
+                              ? Container()
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: MuscleBtn(
@@ -236,19 +232,17 @@ class _DayRectState extends State<DayRect> {
                                         context,
                                         CupertinoPageRoute(
                                           builder: (context) => ExerciseDetails(
-                                            exercise: ex3 ?? "",
+                                            muscle: ex3 ?? "",
                                             day: widget.day,
                                             week: widget.week,
                                           ),
                                         ),
-                                      ).then(
-                                        (_) => {getMuscle()},
                                       );
                                     },
                                   ),
                                 ),
                           ex4 == null
-                              ? Text("")
+                              ? Container()
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: MuscleBtn(
@@ -258,19 +252,17 @@ class _DayRectState extends State<DayRect> {
                                         context,
                                         CupertinoPageRoute(
                                           builder: (context) => ExerciseDetails(
-                                            exercise: ex4 ?? "",
+                                            muscle: ex4 ?? "",
                                             day: widget.day,
                                             week: widget.week,
                                           ),
                                         ),
-                                      ).then(
-                                        (_) => {getMuscle()},
                                       );
                                     },
                                   ),
                                 ),
                           ex5 == null
-                              ? Text("")
+                              ? Container()
                               : Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: MuscleBtn(
@@ -280,13 +272,11 @@ class _DayRectState extends State<DayRect> {
                                         context,
                                         CupertinoPageRoute(
                                           builder: (context) => ExerciseDetails(
-                                            exercise: ex5 ?? "",
+                                            muscle: ex5 ?? "",
                                             day: widget.day,
                                             week: widget.week,
                                           ),
                                         ),
-                                      ).then(
-                                        (_) => {getMuscle()},
                                       );
                                     },
                                   ),
