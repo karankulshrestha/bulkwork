@@ -3,7 +3,6 @@ import 'package:bulkwork/src/pages/screens/exercise_screen.dart';
 import 'package:bulkwork/src/pages/screens/progress_screen.dart';
 import 'package:bulkwork/src/widgets/muscle_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:bulkwork/src/methods/reset_full_gym_exercise.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -149,9 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         MuscleBtn(
                           muscle: "18 years",
-                          Btn: () {
-                            resetFullGymExercise();
-                          },
+                          Btn: () {},
                         ),
                         SizedBox(
                           height: 10,

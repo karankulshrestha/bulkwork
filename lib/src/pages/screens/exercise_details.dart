@@ -1,5 +1,6 @@
 import 'package:bulkwork/src/features/utils/utils.dart';
 import 'package:bulkwork/src/methods/full_gym_exercise.dart';
+import 'package:bulkwork/src/methods/progressMonitor.dart';
 import 'package:bulkwork/src/widgets/exercise_btn.dart';
 import 'package:bulkwork/src/widgets/exercise_col_widget.dart';
 import 'package:flutter/material.dart';
@@ -85,12 +86,23 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
   String reps = "";
   String sets = "";
   late List exercises;
+  late bool status;
 
   @override
   void initState() {
     super.initState();
     exercises = [];
     getExercise();
+    status = false;
+    getExerciseStatus();
+  }
+
+  getExerciseStatus() async {
+    status = await completitionMusclesDetails().getCompleteStatus(
+        muscle: widget.muscle, week: widget.week, day: widget.day);
+    setState(() {
+      status = status;
+    });
   }
 
   getExercise() async {
@@ -337,40 +349,28 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                             ),
                             exercises.length == 0
                                 ? Container()
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      TextButton.icon(
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 12),
-                                          textStyle: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 228, 29, 221)),
-                                          backgroundColor: Color.fromARGB(
-                                              255, 211, 210, 210),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                        ),
-                                        onPressed: () => {},
-                                        icon: Icon(
-                                          Icons.done,
-                                          color:
-                                              Color.fromARGB(255, 54, 7, 114),
-                                        ),
-                                        label: Text(
-                                          'Completed',
-                                          style: TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 54, 7, 114),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                : ElevatedButton(
+                                    child: Text('Mark Complete'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: status == false
+                                          ? Colors.grey
+                                          : Colors.green,
+                                      textStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontStyle: FontStyle.normal),
+                                    ),
+                                    onPressed: () {
+                                      completitionMusclesDetails().setComplete(
+                                          muscle: widget.muscle,
+                                          week: widget.week,
+                                          day: widget.day,
+                                          status: !status);
+
+                                      setState(() {
+                                        status = !status;
+                                      });
+                                    },
                                   ),
                           ],
                         ),
