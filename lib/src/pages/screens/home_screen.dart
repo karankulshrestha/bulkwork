@@ -1,8 +1,11 @@
+import 'package:bulkwork/src/methods/reset_full_gym_exercise.dart';
 import 'package:bulkwork/src/pages/screens/diet_screen.dart';
 import 'package:bulkwork/src/pages/screens/exercise_screen.dart';
 import 'package:bulkwork/src/pages/screens/progress_screen.dart';
 import 'package:bulkwork/src/widgets/muscle_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:bulkwork/src/methods/get_profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -15,12 +18,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int myIndex = 1;
-
+  late List user = [];
   List<Widget> pages = const [DietScreen(), ExerciseScreen(), ProgressScreen()];
 
   @override
   void initState() {
     super.initState();
+    user = [];
+    getUser();
+  }
+
+  void getUser() async {
+    List temp = await UserData().getUserDetails();
+    setState(() {
+      user = temp;
+    });
+    print(temp);
   }
 
   Future<bool> _onPop() async {
@@ -103,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 20,
                         ),
                         Text(
-                          "karankulx@gmail.com",
+                          FirebaseAuth.instance.currentUser?.email ?? "",
                           style: TextStyle(
                             color: Color.fromARGB(255, 75, 180, 236),
                             fontWeight: FontWeight.bold,
@@ -117,69 +130,78 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 250, 249, 249),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Height",
-                          style: TextStyle(color: Colors.purple, fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        MuscleBtn(
-                          muscle: "5'9 feet",
-                          Btn: () {},
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Age",
-                          style: TextStyle(color: Colors.purple, fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        MuscleBtn(
-                          muscle: "18 years",
-                          Btn: () {},
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Weight",
-                          style: TextStyle(color: Colors.purple, fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        MuscleBtn(
-                          muscle: "73 kg",
-                          Btn: () {},
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Body fat",
-                          style: TextStyle(color: Colors.purple, fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        MuscleBtn(
-                          muscle: "Less than 15%",
-                          Btn: () {},
-                        ),
-                      ],
-                    ),
+                    child: user.length == 0
+                        ? Container()
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Height",
+                                style: TextStyle(
+                                    color: Colors.purple, fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              MuscleBtn(
+                                muscle: user[0]["height"] + " feet",
+                                Btn: () {
+                                  resetFullGymExercise();
+                                },
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Age",
+                                style: TextStyle(
+                                    color: Colors.purple, fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              MuscleBtn(
+                                muscle: user[0]["age"] + " years",
+                                Btn: () {},
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Weight",
+                                style: TextStyle(
+                                    color: Colors.purple, fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              MuscleBtn(
+                                muscle: user[0]["weight"] + " kg",
+                                Btn: () {},
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Body fat",
+                                style: TextStyle(
+                                    color: Colors.purple, fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 20,
+                                width: 100,
+                              ),
+                              MuscleBtn(
+                                muscle: user[0]["fat"],
+                                Btn: () {},
+                              ),
+                            ],
+                          ),
                   )
                 ],
               ),

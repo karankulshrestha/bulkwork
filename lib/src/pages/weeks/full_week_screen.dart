@@ -1,6 +1,6 @@
+import 'package:bulkwork/src/methods/full_gym_details.dart';
 import 'package:bulkwork/src/widgets/day_rect.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class FullWeekGym extends StatefulWidget {
   final String week;
@@ -11,9 +11,25 @@ class FullWeekGym extends StatefulWidget {
 }
 
 class _FullWeekGymState extends State<FullWeekGym> {
+  late int totalMuscles = 0;
+  late int totalCompleted = 0;
+
   @override
   void initState() {
     super.initState();
+    totalMuscles = 0;
+    totalCompleted = 0;
+    getProgress();
+  }
+
+  void getProgress() async {
+    var tm = await FullGymExercise().total(week: widget.week);
+    var cm = 1;
+    // await completitionMusclesDetails().getTotalComplete(week: widget.week);
+    setState(() {
+      totalMuscles = tm!;
+      totalCompleted = cm;
+    });
   }
 
   @override
@@ -38,27 +54,6 @@ class _FullWeekGymState extends State<FullWeekGym> {
         ),
         body: Stack(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.03,
-                  horizontal: MediaQuery.of(context).size.width * 0.1),
-              child: new LinearPercentIndicator(
-                width: MediaQuery.of(context).size.width - 80,
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 2500,
-                percent: 0.8,
-                center: Text(
-                  "50%",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
-                ),
-                barRadius: const Radius.circular(20),
-                progressColor: Color.fromARGB(255, 40, 220, 20),
-              ),
-            ),
             new ListView(
               scrollDirection: Axis.vertical,
               children: [
@@ -66,7 +61,7 @@ class _FullWeekGymState extends State<FullWeekGym> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 80,
+                        height: 50,
                       ),
                       DayRect(
                         week: widget.week,

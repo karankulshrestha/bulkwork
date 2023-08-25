@@ -67,4 +67,67 @@ class FullGymExercise {
 
     return data;
   }
+
+  Future<int> getTotalMuscles(
+      {required String week, required String day}) async {
+    String uid = await _auth.currentUser!.uid;
+
+    int total = 0;
+
+    final muscleDataRef = await _firestore
+        .collection("FullGymDays")
+        .doc(uid)
+        .collection(week)
+        .doc(uid)
+        .collection(day)
+        .doc(uid);
+
+    const source = Source.cache;
+
+    final muscleData = await muscleDataRef.get(GetOptions(source: source));
+
+    FullGymDays? data;
+
+    if (muscleData.data() != null) {
+      data = FullGymDays.fromSnap(muscleData.data()!);
+    }
+
+    if (data!.ex1 != null) {
+      total += 1;
+    }
+
+    if (data.ex2 != null) {
+      total += 1;
+    }
+
+    if (data.ex3 != null) {
+      total += 1;
+    }
+
+    if (data.ex4 != null) {
+      total += 1;
+    }
+
+    if (data.ex5 != null) {
+      total += 1;
+    }
+
+    print("${total} total muscle data");
+
+    return total;
+  }
+
+  Future<int?> total({required String week}) async {
+    var finalMuscles = 0;
+
+    for (int i = 1; i < 8; i++) {
+      var ans = await getTotalMuscles(week: week, day: "Day ${i}");
+      finalMuscles += ans!;
+    }
+    ;
+
+    print("${finalMuscles} totals");
+
+    return finalMuscles;
+  }
 }

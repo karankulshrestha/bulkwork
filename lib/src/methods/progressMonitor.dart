@@ -27,7 +27,10 @@ class completitionMusclesDetails {
           completed: status,
         );
 
-        await obj.collection(muscle).add(fullGymExDetails.toJson());
+        await obj
+            .collection(muscle + week + " " + day)
+            .doc(muscle + week + " " + day)
+            .set(fullGymExDetails.toJson());
 
         res = "success";
       }
@@ -38,6 +41,32 @@ class completitionMusclesDetails {
   }
 
   Future<bool> getCompleteStatus(
+      {required String muscle,
+      required String week,
+      required String day}) async {
+    String uid = await _auth.currentUser!.uid;
+
+    QuerySnapshot snap = await _firestore
+        .collection("Completion")
+        .doc(uid)
+        .collection(muscle + week + " " + day)
+        .get();
+
+    bool status = false;
+
+    snap.docs.forEach((element) {
+      if (element.exists) {
+        if (element["week"] == week && element["day"] == day) {
+          print(element["status"]);
+          status = element["status"];
+        }
+      }
+    });
+
+    return status;
+  }
+
+  Future<bool> getTotalComplete(
       {required String muscle,
       required String week,
       required String day}) async {

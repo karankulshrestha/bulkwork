@@ -42,12 +42,10 @@ class FullGymExerciseDetails {
 
   Future<List> getExercideDetails(
       {required String week, required String muscle}) async {
-    final temp = {"exercise": "", "reps": "", "sets": ""};
-
     List exeObj = [];
     String uid = await _auth.currentUser!.uid;
 
-    const source = Source.cache;
+    const source = Source.server;
 
     QuerySnapshot snap = await _firestore
         .collection("FullGymExDetails")

@@ -1,4 +1,5 @@
 import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/methods/reset_full_gym_exercise.dart';
 import 'package:bulkwork/src/methods/user_details.dart';
 import 'package:bulkwork/src/pages/screens/home_screen.dart';
 import 'package:bulkwork/src/widgets/grad_button.dart';
@@ -70,6 +71,7 @@ class _FinalQScreenState extends State<FinalQScreen> {
                   onPressed: () {
                     if (context.mounted) {
                       saveData("Full gym");
+
                       Navigator.pushAndRemoveUntil(
                           context,
                           CupertinoPageRoute(
