@@ -69,10 +69,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             height: 20,
                           ),
                           GraphButton(
-                            title: "Bench Press (PR)",
-                            func: () {
-                              func:
-                              () {
+                              title: "Bench Press (PR)",
+                              func: () {
                                 Navigator.push(
                                   context,
                                   CupertinoPageRoute(
@@ -81,25 +79,21 @@ class _ProgressScreenState extends State<ProgressScreen> {
                                     ),
                                   ),
                                 );
-                              };
-                            },
-                          ),
+                              }),
                           SizedBox(
                             height: 20,
                           ),
                           GraphButton(
                             title: "Deadlift (PR)",
                             func: () {
-                              () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => GraphScreen(
-                                      name: "Deadlift (PR)",
-                                    ),
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => GraphScreen(
+                                    name: "Deadlift (PR)",
                                   ),
-                                );
-                              };
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
@@ -108,16 +102,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           GraphButton(
                             title: "Arm (Measurement)",
                             func: () {
-                              () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => GraphScreen(
-                                      name: "Arm (Measurement)",
-                                    ),
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => GraphScreen(
+                                    name: "Arm (Measurement)",
                                   ),
-                                );
-                              };
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
@@ -126,16 +118,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           GraphButton(
                             title: "Chest (Measurement)",
                             func: () {
-                              () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => GraphScreen(
-                                      name: "Chest (Measurement)",
-                                    ),
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => GraphScreen(
+                                    name: "Chest (Measurement)",
                                   ),
-                                );
-                              };
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
@@ -144,16 +134,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           GraphButton(
                             title: "Waist (Measurement)",
                             func: () {
-                              () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => GraphScreen(
-                                      name: "Waist (Measurement)",
-                                    ),
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => GraphScreen(
+                                    name: "Waist (Measurement)",
                                   ),
-                                );
-                              };
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
@@ -162,16 +150,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           GraphButton(
                             title: "Bodyweight",
                             func: () {
-                              () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => GraphScreen(
-                                      name: "Bodyweight",
-                                    ),
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => GraphScreen(
+                                    name: "Bodyweight",
                                   ),
-                                );
-                              };
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
@@ -180,16 +166,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           GraphButton(
                             title: "Body fat percentage",
                             func: () {
-                              () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => GraphScreen(
-                                      name: "Body fat percentage",
-                                    ),
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => GraphScreen(
+                                    name: "Body fat percentage",
                                   ),
-                                );
-                              };
+                                ),
+                              );
                             },
                           ),
                         ],
