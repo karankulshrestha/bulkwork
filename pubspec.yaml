@@ -42,6 +42,7 @@ dependencies:
   firestore_cache: ^2.3.0+1
   flutter_switch: ^0.3.2
   uuid: ^3.0.7
+  syncfusion_flutter_charts: ^22.2.10
 
 dev_dependencies:
   cloud_firestore: ^4.8.4
