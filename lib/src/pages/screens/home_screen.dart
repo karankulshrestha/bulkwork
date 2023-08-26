@@ -222,7 +222,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 tileMode: TileMode.clamp,
               ),
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30),
+              ),
               boxShadow: [
                 BoxShadow(
                     color: Colors.black38, spreadRadius: 3, blurRadius: 10),

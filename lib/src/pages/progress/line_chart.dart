@@ -197,7 +197,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
                       );
                     },
                   );
-                  getData();
                 })
           ],
         ),
