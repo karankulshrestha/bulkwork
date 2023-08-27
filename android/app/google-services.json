@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "570377259976",
-    "project_id": "bulkwork-95608",
-    "storage_bucket": "bulkwork-95608.appspot.com"
+    "project_number": "798989418818",
+    "project_id": "bulk-final",
+    "storage_bucket": "bulk-final.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:570377259976:android:5cda8bf503d66f5f90cefd",
+        "mobilesdk_app_id": "1:798989418818:android:a73e7156d26fb97f2688db",
         "android_client_info": {
           "package_name": "com.example.bulkwork"
         }
       },
       "oauth_client": [
         {
-          "client_id": "570377259976-t59v6eipl4h6ojk7j4hc89l3f37fjf04.apps.googleusercontent.com",
+          "client_id": "798989418818-9spm3gsclkitgt04ndmjfjo9sg8ot5i1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDz8eYEZq6sEug1aevJk3aWNSBNoyKNHPA"
+          "current_key": "AIzaSyDhNbOBCLvqIMx511IqLfDS6XvJ-oOokco"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "570377259976-t59v6eipl4h6ojk7j4hc89l3f37fjf04.apps.googleusercontent.com",
+              "client_id": "798989418818-9spm3gsclkitgt04ndmjfjo9sg8ot5i1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
