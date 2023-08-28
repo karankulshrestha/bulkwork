@@ -45,7 +45,7 @@ class FullGymExerciseDetails {
     List exeObj = [];
     String uid = await _auth.currentUser!.uid;
 
-    const source = Source.server;
+    const source = Source.serverAndCache;
 
     QuerySnapshot snap = await _firestore
         .collection("FullGymExDetails")

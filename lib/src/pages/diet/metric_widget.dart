@@ -1,14 +1,18 @@
+import 'package:bulkwork/src/methods/user_details.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MetricWidget extends StatefulWidget {
-  final String name;
-  final int current, total;
-  const MetricWidget(
+  final String name, metric;
+  int current, total;
+  MetricWidget(
       {super.key,
       required this.name,
       required this.current,
-      required this.total});
+      required this.total,
+      required this.metric});
 
   @override
   State<MetricWidget> createState() => _MetricWidgetState();
@@ -20,7 +24,7 @@ class _MetricWidgetState extends State<MetricWidget> {
   @override
   void initState() {
     super.initState();
-    perce = widget.current / widget.total;
+    perce = double.parse((widget.current / widget.total).toStringAsFixed(2));
     print("maa ${perce}");
   }
 
@@ -58,7 +62,7 @@ class _MetricWidgetState extends State<MetricWidget> {
                   lineWidth: 8.0,
                   percent: perce,
                   center: new Text(
-                    "${perce * 100}%",
+                    "${(perce * 100).toStringAsFixed(1)}%",
                     style: TextStyle(
                         color: const Color.fromARGB(255, 255, 254, 254),
                         fontWeight: FontWeight.w900),
@@ -112,13 +116,29 @@ class _MetricWidgetState extends State<MetricWidget> {
               // crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        if (widget.current >= 0) {
+                          widget.current++;
+                          perce = double.parse((widget.current / widget.total)
+                              .toStringAsFixed(2));
+                        }
+                      });
+                    },
                     icon: Icon(
                       Icons.add,
                       color: Colors.white,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        if (widget.current > 0) {
+                          widget.current--;
+                          perce = double.parse((widget.current / widget.total)
+                              .toStringAsFixed(2));
+                        }
+                      });
+                    },
                     icon: Icon(
                       Icons.remove,
                       color: Colors.white,

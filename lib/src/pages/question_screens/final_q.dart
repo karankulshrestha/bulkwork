@@ -1,4 +1,5 @@
 import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/methods/reset_full_gym_days.dart';
 import 'package:bulkwork/src/methods/reset_full_gym_exercise.dart';
 import 'package:bulkwork/src/methods/user_details.dart';
 import 'package:bulkwork/src/pages/screens/home_screen.dart';
@@ -42,6 +43,7 @@ class _FinalQScreenState extends State<FinalQScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoaded = false;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -57,7 +59,8 @@ class _FinalQScreenState extends State<FinalQScreen> {
                     top: MediaQuery.of(context).size.height * 0.14,
                     left: MediaQuery.of(context).size.width * 0.12),
                 child: Text(
-                  "Do you have access to full gym\n equipment or only dumbbells?",
+                  // "Do you have access to full gym\n equipment or only dumbbells?",
+                  "Do you have access to full gym\n equipment?",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
@@ -65,40 +68,52 @@ class _FinalQScreenState extends State<FinalQScreen> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Container(
-                child: GradButton(
-                  text: "Full gym",
-                  onPressed: () {
-                    if (context.mounted) {
-                      saveData("Full gym");
-
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                          (Route<dynamic> route) => false);
-                    }
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 150),
-                child: GradButton(
-                  text: "Dumbbells only",
-                  onPressed: () {
-                    saveData("Dumbbells only");
-                    if (context.mounted) {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                          (Route<dynamic> route) => false);
-                    }
-                  },
-                ),
-              ),
+              isLoaded
+                  // ignore: dead_code
+                  ? CircularProgressIndicator(
+                      color: Colors.purple,
+                    )
+                  : Container(
+                      child: GradButton(
+                        text: "Full gym",
+                        onPressed: () {
+                          if (context.mounted) {
+                            setState(() {
+                              isLoaded = true;
+                            });
+                            saveData("Full gym");
+                            resetFullGymExercise();
+                            ResetFullGymDays();
+                            setState(() {
+                              isLoaded = false;
+                            });
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => HomeScreen(),
+                                ),
+                                (Route<dynamic> route) => false);
+                          }
+                        },
+                      ),
+                    ),
+              // Container(
+              //   padding: EdgeInsets.only(top: 150),
+              //   child: GradButton(
+              //     text: "Dumbbells only",
+              //     onPressed: () {
+              //       saveData("Dumbbells only");
+              //       if (context.mounted) {
+              //         Navigator.pushAndRemoveUntil(
+              //             context,
+              //             CupertinoPageRoute(
+              //               builder: (context) => HomeScreen(),
+              //             ),
+              //             (Route<dynamic> route) => false);
+              //       }
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),

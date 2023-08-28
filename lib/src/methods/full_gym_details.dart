@@ -44,26 +44,29 @@ class FullGymExercise {
   Future<FullGymDays?> getMusclesDetails(
       {required String week, required String day}) async {
     String uid = await _auth.currentUser!.uid;
-
-    final muscleDataRef = await _firestore
-        .collection("FullGymDays")
-        .doc(uid)
-        .collection(week)
-        .doc(uid)
-        .collection(day)
-        .doc(uid);
-
-    const source = Source.cache;
-
-    final muscleData = await muscleDataRef.get(GetOptions(source: source));
-
     FullGymDays? data;
 
-    if (muscleData.data() != null) {
-      data = FullGymDays.fromSnap(muscleData.data()!);
+    try {
+      final muscleDataRef = await _firestore
+          .collection("FullGymDays")
+          .doc(uid)
+          .collection(week)
+          .doc(uid)
+          .collection(day)
+          .doc(uid);
+
+      const source = Source.serverAndCache;
+
+      final muscleData = await muscleDataRef.get(GetOptions(source: source));
+
+      if (muscleData.data() != null) {
+        data = FullGymDays.fromSnap(muscleData.data()!);
+      }
+    } catch (e) {
+      print(e);
     }
 
-    print(data!.ex1);
+    // print("${data!.ex1} loda lasson");
 
     return data;
   }

@@ -1,3 +1,4 @@
+import 'package:bulkwork/src/pages/diet/metric_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bulkwork/src/models/user_pref.dart';
@@ -34,6 +35,26 @@ class UserPreference {
             uid: uid);
 
         await _firestore.collection("userDetails").doc(uid).set(prefs.toJson());
+        res = "success";
+      }
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  Future<String> updateMetric(
+      {required int current, required String metric}) async {
+    String res = "Some error occurred in user details";
+
+    try {
+      if (metric.isNotEmpty) {
+        String uid = await _auth.currentUser!.uid;
+        HealthModel model = HealthModel(metric: metric, current: current);
+        await FirebaseFirestore.instance
+            .collection("HealthMetric")
+            .doc(uid)
+            .set(model.toJson());
         res = "success";
       }
     } catch (e) {

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "bulkwork" "\0"
+            VALUE "CompanyName", "com.karanbhai" "\0"
+            VALUE "FileDescription", "finalbulkwork" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bulkwork" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bulkwork.exe" "\0"
-            VALUE "ProductName", "bulkwork" "\0"
+            VALUE "InternalName", "finalbulkwork" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.karanbhai. All rights reserved." "\0"
+            VALUE "OriginalFilename", "finalbulkwork.exe" "\0"
+            VALUE "ProductName", "finalbulkwork" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

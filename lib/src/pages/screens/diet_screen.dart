@@ -42,13 +42,53 @@ class RecipeWidget extends StatelessWidget {
 }
 
 class DietScreen extends StatefulWidget {
-  const DietScreen({super.key});
+  String weight, height, age, gender;
+  DietScreen(
+      {super.key,
+      required this.weight,
+      required this.height,
+      required this.age,
+      required this.gender});
 
   @override
   State<DietScreen> createState() => _DietScreenState();
 }
 
 class _DietScreenState extends State<DietScreen> {
+  int ccalories = 0;
+  int totalcalories = 0;
+  int cproteins = 0;
+  int totalproteins = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    print(widget.gender);
+
+    double temp;
+
+    if (widget.gender == "MALE") {
+      temp = (88.362 +
+              (13.397 * int.parse(widget.weight)) +
+              (4.799 * int.parse(widget.height)) -
+              (5.677 * int.parse(widget.age))) *
+          1.7;
+    } else {
+      temp = (447.593 +
+              (9.247 * int.parse(widget.weight)) +
+              (3.098 * int.parse(widget.height)) -
+              (4.330 * int.parse(widget.age))) *
+          1.7;
+    }
+
+    double tempcal = 1.7 * int.parse(widget.weight);
+    setState(() {
+      totalcalories = temp.toInt();
+      totalproteins = tempcal.toInt();
+    });
+    print(totalcalories);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,16 +122,18 @@ class _DietScreenState extends State<DietScreen> {
                   children: [
                     MetricWidget(
                       name: "Calories",
-                      current: 2100,
-                      total: 3000,
+                      current: ccalories,
+                      total: totalcalories,
+                      metric: "currentCalories",
                     ),
                     SizedBox(
                       height: 30,
                     ),
                     MetricWidget(
                       name: "Protein",
-                      current: 36,
-                      total: 100,
+                      current: cproteins,
+                      total: totalproteins,
+                      metric: "currentProtein",
                     ),
                   ],
                 ),

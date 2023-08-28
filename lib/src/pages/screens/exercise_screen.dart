@@ -21,7 +21,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
     super.initState();
-    ResetFullGymDays();
   }
 
   @override

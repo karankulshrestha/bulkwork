@@ -120,7 +120,11 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
       exercises = [
         ...exercises,
         [
-          {"ex": name, "reps": reps, "sets": sets}
+          {
+            "ex": name,
+            "sets": sets,
+            "reps": reps,
+          }
         ]
       ];
     }
@@ -264,52 +268,63 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                             SizedBox(
                               height: 40,
                             ),
-                            Column(
-                              children: [
-                                for (int i = 0; i < exercises.length; i++) ...[
-                                  Container(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {},
-                                          child: exercises[0] != null
-                                              ? ExerciseColWidget(
-                                                  exercise: exercises[i]["ex"],
-                                                  reps: exercises[i]["reps"],
-                                                  sets: exercises[i]["sets"],
-                                                )
-                                              : Text(""),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        InkWell(
-                                          onTap: () async {
-                                            if (exercises.length > 2) {
-                                              await deleteExercise(i);
-                                              setState(() {
-                                                exercises = List.from(exercises)
-                                                  ..removeAt(i);
-                                              });
-                                            } else {
-                                              showSnackBar(context,
-                                                  "Minimum 2 exercise required");
-                                            }
-                                          },
-                                          child: Icon(
-                                            Icons.delete,
-                                            color: Colors.white,
+                            exercises.length == 0
+                                ? CircularProgressIndicator(
+                                    color: Colors.pink,
+                                  )
+                                : Column(
+                                    children: [
+                                      for (int i = 0;
+                                          i < exercises.length;
+                                          i++) ...[
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {},
+                                                child: exercises[0] != null
+                                                    ? ExerciseColWidget(
+                                                        exercise: exercises[i]
+                                                            ["ex"],
+                                                        reps: exercises[i]
+                                                            ["reps"],
+                                                        sets: exercises[i]
+                                                            ["sets"],
+                                                      )
+                                                    : Text(""),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  if (exercises.length > 2) {
+                                                    await deleteExercise(i);
+                                                    setState(() {
+                                                      exercises =
+                                                          List.from(exercises)
+                                                            ..removeAt(i);
+                                                    });
+                                                  } else {
+                                                    showSnackBar(context,
+                                                        "Minimum 2 exercise required");
+                                                  }
+                                                },
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ]
+                                    ],
                                   ),
-                                ]
-                              ],
-                            ),
                             SizedBox(
                               height: 20,
                             ),
@@ -322,15 +337,15 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                                         title: "Add the exercise",
                                         muscle: widget.muscle,
                                         week: widget.week,
-                                        addy: (String name, String set,
-                                            String reps) {
+                                        addy: (String name, String reps,
+                                            String set) {
                                           setState(() {
                                             exercises = [
                                               ...exercises,
                                               {
                                                 "ex": name,
-                                                "reps": reps,
                                                 "sets": set,
+                                                "reps": reps,
                                               }
                                             ];
                                           });

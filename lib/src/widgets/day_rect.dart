@@ -36,24 +36,31 @@ class _DayRectState extends State<DayRect> {
   }
 
   Future getMuscle() async {
-    setState(() {
-      isLoading = true;
-    });
+    try {
+      setState(() {
+        isLoading = true;
+      });
 
-    muscleObj = await FullGymExercise()
-        .getMusclesDetails(week: widget.week, day: widget.day);
+      muscleObj = await FullGymExercise()
+          .getMusclesDetails(week: widget.week, day: widget.day);
 
-    setState(() {
-      ex1 = muscleObj!.ex1;
-      ex2 = muscleObj!.ex2;
-      ex3 = muscleObj!.ex3;
-      ex4 = muscleObj!.ex4;
-      ex5 = muscleObj!.ex5;
-      restDay = muscleObj!.restday;
-    });
-    setState(() {
-      isLoading = false;
-    });
+      setState(() {
+        ex1 = muscleObj!.ex1;
+        ex2 = muscleObj!.ex2;
+        ex3 = muscleObj!.ex3;
+        ex4 = muscleObj!.ex4;
+        ex5 = muscleObj!.ex5;
+        restDay = muscleObj!.restday;
+      });
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+        print(e);
+      });
+    }
   }
 
   @override

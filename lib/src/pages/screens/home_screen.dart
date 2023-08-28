@@ -1,8 +1,10 @@
+import 'package:bulkwork/src/features/authentication/screens/signin_screen.dart';
 import 'package:bulkwork/src/methods/reset_full_gym_exercise.dart';
 import 'package:bulkwork/src/pages/screens/diet_screen.dart';
 import 'package:bulkwork/src/pages/screens/exercise_screen.dart';
 import 'package:bulkwork/src/pages/screens/progress_screen.dart';
 import 'package:bulkwork/src/widgets/muscle_btn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bulkwork/src/methods/get_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int myIndex = 1;
   late List user = [];
-  List<Widget> pages = const [DietScreen(), ExerciseScreen(), ProgressScreen()];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -29,11 +31,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getUser() async {
-    List temp = await UserData().getUserDetails();
-    setState(() {
-      user = temp;
-    });
-    print(temp);
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      List temp = await UserData().getUserDetails();
+      setState(() {
+        user = temp;
+      });
+      setState(() {
+        isLoading = false;
+      });
+      print(temp);
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print(e);
+    }
   }
 
   Future<bool> _onPop() async {
@@ -61,6 +76,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> pages = [
+      DietScreen(
+        height: user.length == 0 ? "" : user[0]["height"]!,
+        weight: user.length == 0 ? "" : user[0]["weight"]!,
+        age: user.length == 0 ? "" : user[0]["age"]!,
+        gender: user.length == 0 ? "" : user[0]["gender"]!,
+      ),
+      ExerciseScreen(),
+      ProgressScreen()
+    ];
+
     return SafeArea(
       child: WillPopScope(
         onWillPop: _onPop,
@@ -115,12 +141,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           width: 20,
                         ),
-                        Text(
-                          FirebaseAuth.instance.currentUser?.email ?? "",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 75, 180, 236),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            FirebaseAuth.instance.currentUser?.email ?? "",
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              color: Color.fromARGB(255, 75, 180, 236),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ],
@@ -135,8 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Color.fromARGB(255, 250, 249, 249),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: user.length == 0
-                        ? Container()
+                    child: isLoading == true
+                        ? CircularProgressIndicator(
+                            color: Color.fromARGB(255, 233, 22, 244),
+                          )
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -149,10 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 20,
                               ),
                               MuscleBtn(
-                                muscle: user[0]["height"] + " feet",
-                                Btn: () {
-                                  resetFullGymExercise();
-                                },
+                                muscle: user[0]["height"] + " cm",
+                                Btn: () {},
                               ),
                               SizedBox(
                                 height: 10,
@@ -202,12 +232,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  MuscleBtn(
+                      muscle: "Logout",
+                      Btn: () async {
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => SignIn(),
+                            ),
+                            (Route<dynamic> route) => false);
+                      })
                 ],
               ),
             ),
           ),
-          body: SafeArea(child: pages[myIndex]),
+          body: isLoading == true
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.purple,
+                  ),
+                )
+              : SafeArea(child: pages[myIndex]),
           bottomNavigationBar: Container(
             height: 80,
             decoration: BoxDecoration(

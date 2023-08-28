@@ -390,120 +390,135 @@ class _DayManagerState extends ConsumerState<DayManager> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0))),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 255, 255, 255),
-                                    title: Text(
-                                      "Select the Muscle to Add",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 28, 28, 28),
-                                        fontWeight: FontWeight.bold,
+                          Container(
+                            width: 250,
+                            height: 40,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20.0))),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 255, 255, 255),
+                                      title: Text(
+                                        "Select the Muscle to Add",
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 28, 28, 28),
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    content: Container(
-                                      height: 500,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                      ),
-                                      width: double.maxFinite,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: ListView(
-                                              shrinkWrap: true,
-                                              children: <Widget>[
-                                                optionOne,
-                                                optionTwo,
-                                                optionThree,
-                                                optionFour,
-                                                optionFive,
-                                                optionSix,
-                                                optionSeven
-                                              ],
+                                      content: Container(
+                                        height: 500,
+                                        decoration: BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                        ),
+                                        width: double.maxFinite,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: ListView(
+                                                shrinkWrap: true,
+                                                children: <Widget>[
+                                                  optionOne,
+                                                  optionTwo,
+                                                  optionThree,
+                                                  optionFour,
+                                                  optionFive,
+                                                  optionSix,
+                                                  optionSeven
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Color.fromARGB(255, 240, 30, 156),
-                                elevation: 12.0,
-                                textStyle:
-                                    const TextStyle(color: Colors.white)),
-                            child: const Text('Click to Add Muscles'),
+                                    );
+                                  },
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 240, 30, 156),
+                                  elevation: 12.0,
+                                  textStyle:
+                                      const TextStyle(color: Colors.white)),
+                              child: const Text(
+                                'Click to Add Muscles',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 20,
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text('Enter new muscle'),
-                                  content: TextField(
-                                    controller: _fieldTextController,
-                                    decoration: InputDecoration(
-                                        hintText: 'Name of the new muscle'),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        String muscleName =
-                                            _fieldTextController.text;
-                                        if (muscleName.length > 9) {
-                                          showSnackBar(context,
-                                              "Maximum 9 chars allowed");
-                                        } else {
-                                          if (muscles.contains(muscleName)) {
-                                            showSnackBar(context,
-                                                "Already exist in the day");
-                                          } else {
-                                            if (muscles.length < 5) {
-                                              addMuscle(muscleName);
-                                              setState(
-                                                () {
-                                                  muscles = [
-                                                    ...muscles,
-                                                    muscleName
-                                                  ];
-                                                },
-                                              );
-                                            } else {
-                                              showSnackBar(context,
-                                                  "Maximum 5 muscles are allowed");
-                                            }
-                                          }
-                                        }
-                                      },
-                                      child: Text('Submit'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple,
-                                elevation: 12.0,
-                                textStyle:
-                                    const TextStyle(color: Colors.white)),
-                            child: const Text('Add Muscle Manually'),
-                          ),
+                          // Container(
+                          //   width: 250,
+                          //   height: 40,
+                          //   child: ElevatedButton(
+                          //     onPressed: () {
+                          //       showDialog(
+                          //         context: context,
+                          //         builder: (context) => AlertDialog(
+                          //           title: Text('Enter new muscle'),
+                          //           content: TextField(
+                          //             controller: _fieldTextController,
+                          //             decoration: InputDecoration(
+                          //                 hintText: 'Name of the new muscle'),
+                          //           ),
+                          //           actions: [
+                          //             TextButton(
+                          //               onPressed: () {
+                          //                 String muscleName =
+                          //                     _fieldTextController.text;
+                          //                 if (muscleName.length > 9) {
+                          //                   showSnackBar(context,
+                          //                       "Maximum 9 chars allowed");
+                          //                 } else {
+                          //                   if (muscles.contains(muscleName)) {
+                          //                     showSnackBar(context,
+                          //                         "Already exist in the day");
+                          //                   } else {
+                          //                     if (muscles.length < 5) {
+                          //                       addMuscle(muscleName);
+                          //                       setState(
+                          //                         () {
+                          //                           muscles = [
+                          //                             ...muscles,
+                          //                             muscleName
+                          //                           ];
+                          //                         },
+                          //                       );
+                          //                     } else {
+                          //                       showSnackBar(context,
+                          //                           "Maximum 5 muscles are allowed");
+                          //                     }
+                          //                   }
+                          //                 }
+                          //               },
+                          //               child: Text('Submit'),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       );
+                          //     },
+                          //     style: ElevatedButton.styleFrom(
+                          //       backgroundColor: Colors.purple,
+                          //       elevation: 12.0,
+                          //       textStyle: const TextStyle(color: Colors.white),
+                          //     ),
+                          //     child: const Text(
+                          //       'Add Muscle Manually',
+                          //       style: TextStyle(fontWeight: FontWeight.bold),
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 40,
                           ),

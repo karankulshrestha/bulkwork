@@ -1,4 +1,4 @@
-package com.example.bulkwork
+package com.karanbhai.finalbulkwork
 
 import io.flutter.embedding.android.FlutterActivity
 

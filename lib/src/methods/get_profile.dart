@@ -11,7 +11,7 @@ class UserData {
     String uid = await _auth.currentUser!.uid;
     List User = [];
 
-    const source = Source.cache;
+    const source = Source.serverAndCache;
 
     QuerySnapshot snap = await _firestore.collection("userDetails").get(
           GetOptions(source: source),
@@ -27,6 +27,7 @@ class UserData {
             "fat": document["fat"],
             "weight": document["weight"],
             "height": document["height"],
+            "gender": document["gender"],
           });
         }
       },

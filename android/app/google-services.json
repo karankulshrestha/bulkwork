@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "798989418818",
-    "project_id": "bulk-final",
-    "storage_bucket": "bulk-final.appspot.com"
+    "project_number": "193162512821",
+    "project_id": "fullgymapk",
+    "storage_bucket": "fullgymapk.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:798989418818:android:a73e7156d26fb97f2688db",
+        "mobilesdk_app_id": "1:193162512821:android:0d295e7fb2fca3345b71fc",
         "android_client_info": {
-          "package_name": "com.example.bulkwork"
+          "package_name": "com.karanbhai.finalbulkwork"
         }
       },
       "oauth_client": [
         {
-          "client_id": "798989418818-9spm3gsclkitgt04ndmjfjo9sg8ot5i1.apps.googleusercontent.com",
+          "client_id": "193162512821-fs755pkds1s5c3ts417v3m5m7kk0u8e1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhNbOBCLvqIMx511IqLfDS6XvJ-oOokco"
+          "current_key": "AIzaSyDsBjU6weABY08hbfEux7Zy0jGJhRq2mbI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "798989418818-9spm3gsclkitgt04ndmjfjo9sg8ot5i1.apps.googleusercontent.com",
+              "client_id": "193162512821-fs755pkds1s5c3ts417v3m5m7kk0u8e1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

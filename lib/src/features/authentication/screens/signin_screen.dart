@@ -1,7 +1,9 @@
 import 'package:bulkwork/src/features/authentication/screens/signup_screen.dart';
+import 'package:bulkwork/src/features/utils/utils.dart';
+import 'package:bulkwork/src/pages/screens/home_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -11,6 +13,37 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool _isLoading = false;
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
+
+  void signInFunc() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+          (Route<dynamic> route) => false);
+      setState(() {
+        _isLoading = false;
+      });
+      return null;
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +65,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -45,6 +79,7 @@ class _SignInState extends State<SignIn> {
                         height: 20,
                       ),
                       TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           filled: true,
@@ -59,7 +94,9 @@ class _SignInState extends State<SignIn> {
                         height: 20,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          signInFunc();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 36, 70, 222),
                           shape: RoundedRectangleBorder(
@@ -69,11 +106,19 @@ class _SignInState extends State<SignIn> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 80, vertical: 15),
                         ),
-                        child: Text(
-                          "Sign In",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
+                        child: _isLoading == true
+                            ? SizedBox(
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                                height: 20,
+                                width: 20,
+                              )
+                            : Text(
+                                "Sign In",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.4,
